@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beta · MushHub</title><meta name="title-es" content="Beta · MushHub"><meta name="title-en" content="Beta · MushHub">
+<meta name="description" content="MushHub: asistente de streaming para Windows. Voz para OBS, multichat, títulos para Twitch, Kick y YouTube y clips con IA local.">
+<link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="style.css">
+</head><body>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/icon.png" alt="">MushHub</a>
+<nav><a href="index.html"><span data-l="es">Inicio</span><span data-l="en">Home</span></a><a href="beta.html" aria-current=page><span data-l="es">Beta</span><span data-l="en">Beta</span></a><a href="privacidad.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a><a href="terminos.html"><span data-l="es">Términos</span><span data-l="en">Terms</span></a></nav><div class="langs"><button data-set="es">ES</button> <button data-set="en">EN</button></div></div></header>
+<main class="wrap">
+<div class="hero" style="padding-bottom:10px"><img src="assets/icon.png" alt="">
+<h1 id="hola"><span data-l="es">Beta de MushHub</span><span data-l="en">MushHub beta</span></h1>
+<p class="lead"><span data-l="es">Gracias por probar MushHub antes que nadie. Tu opinión decide qué mejoramos primero.</span><span data-l="en">Thanks for trying MushHub before anyone else. Your feedback decides what we improve first.</span></p>
+<a class="btn primary" id="betaDownload" href="https://github.com/Mushingames/MushHub-Descargas/releases/latest"><span data-l="es">⬇ Descargar la beta</span><span data-l="en">⬇ Download the beta</span></a>
+<a class="btn ghost" id="companionDownload" href="https://github.com/Mushingames/MushHub-Descargas/releases/latest" hidden><span data-l="es">Companion (PC gaming)</span><span data-l="en">Companion (gaming PC)</span></a>
+<p class="small" id="betaVersion">&nbsp;</p></div>
+<section><h2><span data-l="es">Cómo empezar</span><span data-l="en">Getting started</span></h2><ol class="steps">
+<li><span data-l="es">Descarga e instala. Windows puede mostrar "Windows protegió su PC": pulsa <b>Más información → Ejecutar de todas formas</b> (el instalador todavía no está firmado).</span><span data-l="en">Download and install. Windows may show "Windows protected your PC": click <b>More info → Run anyway</b> (the installer isn't code-signed yet).</span></li>
+<li><span data-l="es">Sigue el asistente inicial: carpetas, OBS (WebSocket) y tus plataformas.</span><span data-l="en">Follow the first-run setup: folders, OBS (WebSocket) and your platforms.</span></li>
+<li><span data-l="es">En <b>Ajustes → Membresía → ¿Tienes un código?</b> escribe tu correo y el código de tester que te mandamos: te da todo desbloqueado de por vida.</span><span data-l="en">In <b>Settings → Membership → Have a code?</b> enter your email and the tester code we sent you: it unlocks everything for life.</span></li>
+<li><span data-l="es">Si usas YouTube, pásanos el Gmail de tu canal para darte acceso mientras Google revisa la app.</span><span data-l="en">If you use YouTube, send us your channel's Gmail so we can give you access while Google reviews the app.</span></li>
+<li><span data-l="es">¿Algo falla? Escríbenos a <a href="mailto:{CONTACT}">{CONTACT}</a> y adjunta <code>%LOCALAPPDATA%\MushHub\data\logs\mushhub.log</code>.</span><span data-l="en">Something broke? Write to <a href="mailto:{CONTACT}">{CONTACT}</a> and attach <code>%LOCALAPPDATA%\MushHub\data\logs\mushhub.log</code>.</span></li></ol></section>
+<script>
+(function(){
+  var testers={"nuttylmao": "Nutty", "senpai": "Senpai"};
+  var who=(new URLSearchParams(location.search).get('para')||'').toLowerCase();
+  if(testers[who]){document.querySelectorAll('#hola [data-l=es]').forEach(function(e){e.textContent='¡Hola, '+testers[who]+'! Esta es tu beta de MushHub'});
+    document.querySelectorAll('#hola [data-l=en]').forEach(function(e){e.textContent='Hi, '+testers[who]+'! This is your MushHub beta'})}
+  // La beta más reciente (pre-release) de la página pública de descargas.
+  fetch('https://api.github.com/repos/Mushingames/MushHub-Descargas/releases?per_page=15').then(function(r){return r.json()}).then(function(list){
+    var rel=(list||[]).find(function(x){return x.prerelease})||(list||[])[0];if(!rel)return;
+    var asset=function(re){return (rel.assets||[]).find(function(a){return re.test(a.name)})};
+    var main=asset(/Setup-.*\.exe$/i),comp=asset(/Companion-Setup.*\.exe$/i);
+    if(main&&!/Companion/i.test(main.name))document.getElementById('betaDownload').href=main.browser_download_url;
+    if(comp){var c=document.getElementById('companionDownload');c.href=comp.browser_download_url;c.hidden=false}
+    document.getElementById('betaVersion').textContent=rel.name||rel.tag_name;
+  }).catch(function(){});
+})();
+</script>
+</main>
+<footer><div class="wrap"><div>© 2026 Cristian Arturo Torres Sanchez (MushInGames), México ·
+<a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a></div><div><a href="privacidad.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a> ·
+<a href="terminos.html"><span data-l="es">Términos</span><span data-l="en">Terms</span></a> · <a href="https://ko-fi.com/mushingames">Ko-fi</a></div>
+<div class="small" style="width:100%"><span data-l="es">MushHub es independiente y no está afiliado a Twitch, Kick, YouTube, Google, TikTok ni OBS.</span><span data-l="en">MushHub is independent and not affiliated with Twitch, Kick, YouTube, Google, TikTok or OBS.</span></div></div></footer>
+<script src="lang.js"></script></body></html>

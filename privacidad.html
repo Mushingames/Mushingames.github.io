@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacidad · MushHub</title><meta name="title-es" content="Privacidad · MushHub"><meta name="title-en" content="Privacy · MushHub">
+<meta name="description" content="MushHub: asistente de streaming para Windows. Voz para OBS, multichat, títulos para Twitch, Kick y YouTube y clips con IA local.">
+<link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="style.css">
+</head><body>
+<header><div class="wrap"><a class="brand" href="index.html"><img src="assets/icon.png" alt="">MushHub</a>
+<nav><a href="index.html"><span data-l="es">Inicio</span><span data-l="en">Home</span></a><a href="beta.html"><span data-l="es">Beta</span><span data-l="en">Beta</span></a><a href="privacidad.html" aria-current=page><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a><a href="terminos.html"><span data-l="es">Términos</span><span data-l="en">Terms</span></a></nav><div class="langs"><button data-set="es">ES</button> <button data-set="en">EN</button></div></div></header>
+<main class="wrap"><div class="doc" data-l="es"><h1>Aviso de privacidad de MushHub</h1>
+<p class="small">Versión 1.3 — 1 de octubre de 2026</p>
+<p>Responsable: Cristian Arturo Torres Sanchez (MushInGames), México. Contacto: <a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a></p>
+<h3>1. En resumen</h3>
+<p>MushHub funciona en tu computadora. Tus grabaciones, clips, transcripciones, chat guardado, ajustes y credenciales se quedan en tu equipo. El responsable NO recibe, almacena ni vende tus datos personales: MushHub no tiene servidores propios que guarden tu información, salvo el relay de Kick y el servidor de cuentas descritos en los puntos 4 y 5.</p>
+<h3>2. Qué se guarda en tu computadora</h3>
+<p>Según las funciones que actives: configuración y preferencias; nombre e identificadores de tus canales; tokens de acceso a Twitch, Kick, YouTube y TikTok (cifrados con Windows DPAPI, ligados a tu usuario de Windows); mensajes y eventos del chat de tus transmisiones (para encontrar momentos destacados); transcripciones de tus grabaciones hechas en tu equipo con Whisper; clips, subtítulos y registros técnicos. Todo queda en %LOCALAPPDATA%\MushHub y en las carpetas que elijas. Puedes borrarlo cuando quieras eliminando esas carpetas o desinstalando MushHub.</p>
+<h3>3. Qué sale de tu computadora y a dónde (solo si usas la función)</h3>
+<p>- Twitch, Kick, YouTube y TikTok: lo necesario para conectar tu cuenta, leer tu chat y eventos, y cambiar títulos o categorías cuando tú lo confirmas.
+- Reconocimiento de voz: el audio de tus comandos de voz se envía al servicio de reconocimiento de voz de Google para convertirlo en texto.
+- Voz de lectura (Edge-TTS): el texto que se lee en voz alta se envía al servicio de voz de Microsoft.
+- Emotes: se consultan las listas públicas de emotes de 7TV, BetterTTV y FrankerFaceZ para tu canal.
+- Actualizaciones: MushHub consulta la página pública de descargas en GitHub para saber si hay una versión nueva (puedes desactivarlo en Ajustes).
+- IA en la nube (opcional): solo si tú configuras tu propia clave de OpenAI o Anthropic, el texto de tus comandos o fragmentos de transcripción se envían a ese proveedor. Por defecto, MushAI funciona localmente en tu equipo. Cada uno de esos servicios trata los datos conforme a sus propias políticas de privacidad.</p>
+<h3>4. Relay de Kick</h3>
+<p>Para que no tengas que crear tu propia aplicación de Kick, la autorización y el chat de Kick pasan por un pequeño servidor de MushHub en Cloudflare. Ese servidor guarda la clave de la aplicación de MushHub, intercambia los códigos de autorización y mantiene temporalmente los últimos mensajes públicos del chat de tu canal para entregarlos a tu MushHub. No guarda tus contraseñas ni tus tokens y no se usa para ningún otro fin.</p>
+<h3>5. Membresías (solo si pagas una)</h3>
+<p>Si apoyas MushHub con una membresía en Ko-fi, Ko-fi le envía al servidor de cuentas de MushHub (Cloudflare) tu correo, el nivel de la membresía, la cantidad y la fecha del pago. El servidor guarda solo tu correo, tu nivel, hasta cuándo dura y un identificador al azar de la PC donde la activaste (para que funcione en una PC a la vez). Para activarla, tu correo se usa para enviarte un código de un solo uso a través de un servicio de correo (Brevo). MushHub no recibe ni guarda datos de tarjeta: el pago lo procesa Ko-fi con PayPal o Stripe. Puedes pedir que se borren tus datos de membresía escribiendo a <a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a>.</p>
+<h3>6. Para qué se usan</h3>
+<p>Solo para que MushHub funcione: conectar tus plataformas, mostrar y leer el chat, controlar OBS, preparar títulos, crear clips y subtítulos, y diagnosticar errores. Nunca para publicidad ni perfiles.</p>
+<h3>7. Tus derechos</h3>
+<p>Como tus datos están en tu equipo, tú los controlas: puedes consultarlos, corregirlos o borrarlos directamente, y desconectar cualquier cuenta desde MushHub o desde la propia plataforma. Para cualquier duda sobre privacidad escribe a <a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a>.</p>
+<h3>8. Seguridad</h3>
+<p>Se usan permisos mínimos en cada plataforma, cifrado DPAPI para credenciales, ocultamiento de secretos en registros y confirmación humana antes de cambiar información en tus canales. Ningún sistema es infalible.</p>
+<h3>9. Menores</h3>
+<p>MushHub no está dirigido a menores de edad sin autorización de sus padres o tutores, y debes cumplir la edad mínima de cada plataforma.</p>
+<h3>10. YouTube y Google</h3>
+<p>MushHub usa los Servicios de API de YouTube. Al conectar YouTube aceptas los Términos de Servicio de YouTube (<a href="https://www.youtube.com/t/terms">https://www.youtube.com/t/terms</a>) y se aplica la Política de Privacidad de Google (<a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>). MushHub pide solo dos permisos: &quot;youtube.readonly&quot;, para leer el chat y el estado de tu transmisión en vivo, y &quot;youtube.force-ssl&quot;, para cambiar el título o la descripción de TU transmisión únicamente después de que veas la vista previa y lo confirmes. Esos datos y tus tokens de acceso se guardan solo en tu computadora, cifrados con DPAPI; nunca se envían a servidores de MushHub, no se venden, no se comparten y no se usan para publicidad. El uso que MushHub hace de la información recibida de las APIs de Google cumple la Política de Datos de Usuario de los Servicios de API de Google, incluidos los requisitos de Uso Limitado. Puedes quitar el acceso en cualquier momento desde MushHub (Desconectar) o en <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a>.</p>
+<h3>11. Cambios</h3>
+<p>Si este aviso cambia de forma importante, MushHub lo mostrará al actualizar a la nueva versión.</p></div><div class="doc" data-l="en"><h1>MushHub privacy notice</h1>
+<p class="small">Version 1.3 — October 1, 2026</p>
+<p>Controller: Cristian Arturo Torres Sanchez (MushInGames), Mexico. Contact: <a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a></p>
+<p>This is a courtesy translation. If it differs from the Spanish version (PRIVACY_ES.txt), the Spanish version prevails.</p>
+<h3>1. In short</h3>
+<p>MushHub runs on your computer. Your recordings, clips, transcripts, saved chat, settings and credentials stay on your machine. The controller does NOT receive, store or sell your personal data: MushHub has no servers of its own that keep your information, except the Kick relay and the accounts server described in sections 4 and 5.</p>
+<h3>2. What is stored on your computer</h3>
+<p>Depending on the features you turn on: configuration and preferences; your channel names and identifiers; access tokens for Twitch, Kick, YouTube and TikTok (encrypted with Windows DPAPI and tied to your Windows user); chat messages and events from your streams (to find highlights); transcripts of your recordings, made on your computer with Whisper; clips, subtitles and technical logs. Everything stays in %LOCALAPPDATA%\MushHub and in the folders you choose. You can delete it at any time by removing those folders or uninstalling MushHub.</p>
+<h3>3. What leaves your computer and where it goes (only if you use the feature)</h3>
+<p>- Twitch, Kick, YouTube and TikTok: what is needed to connect your account, read your chat and events, and change titles or categories when you confirm.
+- Speech recognition: the audio of your voice commands is sent to Google&#x27;s speech recognition service to turn it into text.
+- Read-aloud voice (Edge-TTS): the text that is read aloud is sent to Microsoft&#x27;s speech service.
+- Emotes: the public emote lists of 7TV, BetterTTV and FrankerFaceZ are requested for your channel.
+- Updates: MushHub checks the public downloads page on GitHub to see whether a new version exists (you can turn this off in Settings).
+- Cloud AI (optional): only if you set up your own OpenAI or Anthropic key, the text of your commands or transcript excerpts is sent to that provider. By default, MushAI runs locally on your computer. Each of those services handles data under its own privacy policy.</p>
+<h3>4. Kick relay</h3>
+<p>So that you do not have to create your own Kick application, Kick authorization and chat go through a small MushHub server on Cloudflare. That server holds the MushHub application key, exchanges the authorization codes and temporarily keeps the latest public chat messages of your channel to deliver them to your MushHub. It does not store your passwords or your tokens and is not used for any other purpose.</p>
+<h3>5. Memberships (only if you pay for one)</h3>
+<p>If you support MushHub with a membership on Ko-fi, Ko-fi sends the MushHub accounts server (Cloudflare) your email, membership tier, amount and payment date. The server keeps only your email, your tier, when it ends and a random identifier of the PC where you activated it (so it works on one PC at a time). To activate it, your email is used to send you a one-time code through an email service (Brevo). MushHub never receives or stores card details: Ko-fi processes the payment with PayPal or Stripe. You can ask for your membership data to be deleted by writing to <a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a>.</p>
+<h3>6. What it is used for</h3>
+<p>Only to make MushHub work: connecting your platforms, showing and reading chat, controlling OBS, preparing titles, creating clips and subtitles, and diagnosing errors. Never for advertising or profiling.</p>
+<h3>7. Your rights</h3>
+<p>Because your data is on your computer, you control it: you can view, correct or delete it directly, and disconnect any account from MushHub or from the platform itself. For any privacy question write to <a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a>.</p>
+<h3>8. Security</h3>
+<p>Minimum permissions are requested on each platform, credentials are encrypted with DPAPI, secrets are hidden in logs, and a human confirmation is required before changing information on your channels. No system is infallible.</p>
+<h3>9. Minors</h3>
+<p>MushHub is not intended for minors without the permission of their parents or guardians, and you must meet each platform&#x27;s minimum age.</p>
+<h3>10. YouTube and Google</h3>
+<p>MushHub uses YouTube API Services. By connecting YouTube you agree to the YouTube Terms of Service (<a href="https://www.youtube.com/t/terms">https://www.youtube.com/t/terms</a>), and the Google Privacy Policy applies (<a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>). MushHub requests only two permissions: &quot;youtube.readonly&quot;, to read the chat and status of your live broadcast, and &quot;youtube.force-ssl&quot;, to change the title or description of YOUR broadcast only after you see the preview and confirm it. That data and your access tokens are stored only on your computer, encrypted with DPAPI; they are never sent to MushHub servers, sold, shared or used for advertising. MushHub&#x27;s use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements. You can remove access at any time from MushHub (Disconnect) or at <a href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a>.</p>
+<h3>11. Changes</h3>
+<p>If this notice changes significantly, MushHub will show it when you update to the new version.</p></div></main>
+<footer><div class="wrap"><div>© 2026 Cristian Arturo Torres Sanchez (MushInGames), México ·
+<a href="mailto:contacto.mushhub@gmail.com">contacto.mushhub@gmail.com</a></div><div><a href="privacidad.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a> ·
+<a href="terminos.html"><span data-l="es">Términos</span><span data-l="en">Terms</span></a> · <a href="https://ko-fi.com/mushingames">Ko-fi</a></div>
+<div class="small" style="width:100%"><span data-l="es">MushHub es independiente y no está afiliado a Twitch, Kick, YouTube, Google, TikTok ni OBS.</span><span data-l="en">MushHub is independent and not affiliated with Twitch, Kick, YouTube, Google, TikTok or OBS.</span></div></div></footer>
+<script src="lang.js"></script></body></html>
