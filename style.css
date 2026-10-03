@@ -16,6 +16,8 @@ nav a:hover,nav a[aria-current]{color:var(--text)}
 .hero{padding:64px 0 36px;text-align:center}
 .hero img{width:96px;height:96px}
 h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin:14px 0}
+.tagline{font-size:22px;font-weight:700;margin:-4px 0 12px}
+.langLink{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid var(--border);border-radius:8px;padding:4px 10px}
 .lead{color:var(--muted);font-size:19px;max-width:720px;margin:0 auto 26px}
 .btn{display:inline-block;padding:13px 22px;border-radius:12px;font-weight:800;text-decoration:none;margin:6px}
 .btn.primary{background:linear-gradient(90deg,var(--purple),var(--magenta));color:#fff}
