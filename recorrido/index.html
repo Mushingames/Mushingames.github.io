@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MushHub · Recorrido de la app</title>
+<meta name="description" content="Recorre MushHub con el scroll: voz para OBS, multichat, MushAI y clips verticales con una partida real de SMITE 2.">
+<link rel="icon" href="assets/icon.png">
+<link rel="alternate" hreflang="es" href="https://mushhub.stream/recorrido/">
+<link rel="alternate" hreflang="en" href="https://mushhub.stream/recorrido/en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas: #070816; --sc-surface: #12152B;
+    --sc-ink: #F7F4FF; --sc-ink-soft: #B8B5D1;
+    --sc-accent: #F500D7; --sc-accent-ink: #FFFFFF;
+    --sc-font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --sc-font-text: "Manrope", system-ui, sans-serif;
+    --lift: #1A1B3D; --vio: #8B32FF; --cy: #00E5F2; --ok: #35E6A5; --warn: #FFC247; --bad: #FF4D77;
+    --spring: cubic-bezier(.34, 1.56, .64, 1); --out: cubic-bezier(.22, 1, .36, 1);
+    --s2: 0 2px 4px rgba(3,4,14,.55), 0 24px 60px -24px rgba(139,50,255,.45), 0 40px 90px -50px rgba(245,0,215,.35);
+    --s3: 0 4px 10px rgba(3,4,14,.6), 0 40px 100px -30px rgba(245,0,215,.45), 0 20px 50px -30px rgba(0,229,242,.35);
+  }
+  body { background:
+      radial-gradient(60vw 50vh at 85% -5%, rgba(245,0,215,.16), transparent 60%),
+      radial-gradient(55vw 45vh at -10% 40%, rgba(139,50,255,.16), transparent 62%), var(--sc-canvas);
+    background-attachment: fixed; }
+  .sc-display { letter-spacing: -0.03em; font-variation-settings: "wdth" 100; }
+  .grad { background: linear-gradient(92deg, #F500D7 0%, #8B32FF 48%, #00E5F2 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--cy); outline-offset: 3px; }
+
+  /* bar: wordmark + one CTA */
+  .bar { position: fixed; z-index: 50; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 12px; padding: 14px var(--sc-gutter, 24px); background: linear-gradient(rgba(7,8,22,.75), transparent); }
+  .bar img { width: 32px; height: 32px; }
+  .bar b { font: 800 1.3rem var(--sc-font-display); letter-spacing: -.02em; }
+  .cta { display: inline-flex; align-items: center; gap: .55rem; border-radius: 999px; background: var(--sc-accent); color: #fff; font-weight: 800; text-decoration: none; padding: .7rem 1.25rem;
+    box-shadow: 0 10px 30px -10px rgba(245,0,215,.7), 0 2px 6px rgba(3,4,14,.5); transition: transform .45s var(--spring), box-shadow .3s var(--out); }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(245,0,215,.9), 0 2px 6px rgba(3,4,14,.5); }
+  .cta:active { transform: translateY(1px) scale(.98); }
+  .cta svg { width: 18px; height: 18px; }
+  .bar .cta { margin-left: auto; font-size: .9rem; white-space: nowrap; }
+  @media (max-width: 420px) { .bar b { display: none; } .bar .cta { padding: .6rem 1rem; } }
+  .ghost { color: var(--sc-ink); background: rgba(247,244,255,.05); border: 1px solid rgba(247,244,255,.18); box-shadow: none; }
+  .ghost:hover { background: rgba(247,244,255,.1); box-shadow: none; }
+
+  .lang { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(7,8,22,.7); border: 1px solid rgba(0,229,242,.45); box-shadow: 0 0 0 4px rgba(0,229,242,.06); margin-left: auto; }
+  .lang a { padding: .3rem .7rem; border-radius: 999px; font-weight: 800; font-size: .82rem; color: var(--sc-ink-soft); text-decoration: none; transition: color .2s, background-color .25s; }
+  .lang a:hover { color: var(--sc-ink); background: rgba(247,244,255,.07); }
+  .lang a[aria-current="true"] { color: #070816; background: var(--cy); }
+  .bar .lang + .cta { margin-left: 0; }
+  .elev { background: linear-gradient(180deg, rgba(26,27,61,.94), rgba(18,21,43,.94)); border: 1px solid rgba(160,150,255,.14); box-shadow: var(--s2); border-radius: 20px; }
+
+  /* 1 · hero chat chips (foreground plane) */
+  .chips { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .chip { position: absolute; display: flex; align-items: center; gap: .45rem; padding: .45rem .8rem; border-radius: 12px; background: rgba(7,8,22,.82); border: 1px solid rgba(247,244,255,.12); font-size: .9rem; box-shadow: var(--s2); white-space: nowrap; }
+  .chip svg { width: 15px; height: 15px; }
+  .hero-sub { margin-top: 1rem; max-width: 30rem; }
+  @media (max-width: 860px) {
+    .chip { font-size: .78rem; }
+    .chip:nth-child(1) { top: 11% !important; } .chip:nth-child(2) { top: 19% !important; right: 30% !important; }
+    .chip:nth-child(3), .chip:nth-child(4) { display: none; }
+  }
+
+  /* 2 · tension */
+  .juggle { display: grid; place-items: center; padding: 0 var(--sc-gutter, 24px); }
+  .juggle__lines { position: relative; z-index: 2; max-width: 52rem; }
+  .juggle__lines p { font: 800 clamp(2rem, 1.2rem + 3.2vw, 4rem)/1.05 var(--sc-font-display); letter-spacing: -.03em; margin: 0 0 .25em; }
+  .juggle__lines p:last-child { color: var(--bad); }
+  .notes { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .note { position: absolute; padding: .5rem .8rem; border-radius: 12px; font-size: .85rem; font-weight: 700; background: rgba(18,21,43,.9); border: 1px solid rgba(247,244,255,.1); box-shadow: var(--s2); }
+
+  /* 3 · turn */
+  .turn { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  @media (max-width: 860px) { .turn { grid-template-columns: 1fr; } }
+
+  /* the app window (shared by acts 3-5) */
+  .win { overflow: hidden; font-size: 13px; line-height: 1.45; }
+  .win__top { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; border-bottom: 1px solid rgba(247,244,255,.07); background: rgba(7,8,22,.5); }
+  .win__top img { width: 24px; height: 24px; }
+  .win__top b { font: 800 15px var(--sc-font-display); }
+  .win__top span { color: var(--sc-ink-soft); font-size: 11px; }
+  .win__body { display: grid; grid-template-columns: 128px 1fr; }
+  .side { display: flex; flex-direction: column; gap: 6px; padding: 10px; border-right: 1px solid rgba(247,244,255,.07); background: rgba(7,8,22,.3); }
+  .side span { border-radius: 8px; border: 1px solid rgba(247,244,255,.08); padding: 6px 9px; font-weight: 800; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: #d9d6ee; transition: border-color .3s, background-color .3s; }
+  .side span.act { border-color: var(--sc-accent); background: linear-gradient(90deg, rgba(245,0,215,.28), rgba(139,50,255,.12)); color: #fff; }
+  .pane { padding: 16px; min-width: 0; }
+  .pane h3 { font: 700 17px var(--sc-font-display); margin: 0 0 10px; }
+  @media (max-width: 640px) { .win__body { grid-template-columns: 1fr; } .side { display: none; } }
+
+  .vid { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid rgba(247,244,255,.1); aspect-ratio: 16/9; background: #000; }
+  .vid video, .vid img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .pill { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 2px 9px; font-size: 11px; font-weight: 800; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .opt { display: flex; gap: 10px; align-items: center; border: 1px solid rgba(247,244,255,.1); border-radius: 10px; padding: 8px 12px; margin-top: 6px; transition: border-color .3s, background-color .3s, transform .5s var(--spring); }
+  .opt i { font-style: normal; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 6px; background: rgba(247,244,255,.06); font-weight: 800; font-size: 11px; }
+  .opt.pick { border-color: var(--cy); background: rgba(0,229,242,.08); transform: translateX(6px); }
+  .res { display: flex; gap: 10px; align-items: center; border: 1px solid rgba(247,244,255,.1); border-radius: 10px; padding: 6px; margin-top: 6px; }
+  .res img { width: 76px; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px; }
+  .res b.s { margin-left: auto; border-radius: 6px; padding: 2px 6px; background: rgba(247,244,255,.1); font-size: 11px; }
+  .res.top { border-color: rgba(245,0,215,.6); background: rgba(245,0,215,.06); }
+  .res.top b.s { background: linear-gradient(135deg, #F500D7, #8B32FF); }
+  .hide { opacity: 0; transform: translateY(8px); }
+  .fx { transition: opacity .35s var(--out), transform .5s var(--spring); }
+
+  /* 4 · pinned window with changing copy */
+  .work { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; height: 100%; padding: 80px var(--sc-gutter, 24px) 40px; max-width: 1240px; margin: 0 auto; }
+  .work__copy { position: relative; min-height: 14rem; }
+  .work__copy > div { position: absolute; inset: 0 0 auto 0; }
+  .scene { display: none; }
+  .scene.on { display: block; }
+  @media (max-width: 860px) { .work { grid-template-columns: 1fr; padding-top: 72px; align-content: center; } .work__copy { order: -1; min-height: 9rem; } }
+
+  /* 5 · peak: the scroll is the replay buffer */
+  .peak { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; padding: 76px var(--sc-gutter, 24px) 24px; }
+  .peak .vid { max-height: 44vh; aspect-ratio: auto; height: min(44vh, 38vw); }
+  .peak__grid { position: relative; width: min(1040px, 100%); display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
+  .buffer { margin-top: 12px; position: relative; height: 40px; border-radius: 10px; background: rgba(7,8,22,.6); border: 1px solid rgba(247,244,255,.1); overflow: hidden; }
+  .buffer__sel { position: absolute; inset: 0 0 0 auto; width: 34%; background: rgba(139,50,255,.28); border-left: 2px solid var(--sc-accent); transform-origin: right; }
+  .buffer__head { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--cy); left: 0; }
+  .buffer span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 800; color: var(--sc-ink-soft); }
+  .voice { margin-top: 12px; display: flex; align-items: center; gap: 12px; }
+  .wave { flex: 1; display: flex; align-items: center; gap: 3px; height: 34px; }
+  .wave i { flex: 1; height: 100%; border-radius: 3px; background: linear-gradient(#00E5F2, #8B32FF); transform: scaleY(.1); opacity: .35; }
+  .said { font: 800 clamp(1.1rem, .8rem + 1vw, 1.5rem) var(--sc-font-display); letter-spacing: -.02em; min-width: 12ch; }
+  .flash { position: absolute; inset: 0; z-index: 4; border-radius: 20px; background: radial-gradient(closest-side, rgba(247,244,255,.55), rgba(245,0,215,.2), transparent); opacity: 0; pointer-events: none; }
+  .phone { width: clamp(150px, 17vw, 230px); aspect-ratio: 9/16; border-radius: 26px; border: 7px solid #0b0b16; overflow: hidden; position: relative; box-shadow: var(--s3); transform-origin: 0% 50%; }
+  .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .phone .sub { position: absolute; left: 10px; right: 10px; bottom: 22%; text-align: center; font: 800 1rem var(--sc-font-display); text-transform: uppercase; background: rgba(0,0,0,.6); border-radius: 8px; padding: 2px 0; }
+  .saved { margin-top: 12px; text-align: center; color: var(--ok); font-weight: 800; font-size: .95rem; }
+  .peak__copy { width: min(1040px, 100%); }
+  .peak__copy p { margin: .3rem 0 0; }
+  @media (max-width: 860px) {
+    .peak__grid { grid-template-columns: 1fr; justify-items: center; }
+    .peak .vid { height: auto; aspect-ratio: 16/9; }
+    .phone { width: 100px; position: absolute; right: -4px; bottom: -70px; border-width: 5px; border-radius: 18px; }
+    .phone .sub { font-size: .7rem; }
+    .saved { position: absolute; left: 0; bottom: -40px; }
+  }
+
+  /* 6 · plans rail */
+  .rail { display: flex; gap: clamp(1rem, 2vw, 1.75rem); align-items: stretch; height: 100%; padding: 96px var(--sc-gutter, 24px) 56px; }
+  .rail__lead { flex: 0 0 min(30rem, 80vw); align-self: center; }
+  .plan { flex: 0 0 min(23rem, 78vw); display: flex; flex-direction: column; padding: 28px; align-self: center; }
+  .plan h3 { font: 700 1.5rem var(--sc-font-display); margin: 0; }
+  .plan .price { font: 800 2.6rem/1.1 var(--sc-font-display); letter-spacing: -.03em; margin: .2rem 0 0; }
+  .plan ul { list-style: none; padding: 0; margin: 1.2rem 0 1.5rem; display: grid; gap: .6rem; color: var(--sc-ink); }
+  .plan li { display: flex; gap: .5rem; }
+  .plan li::before { content: "✓"; color: var(--ok); font-weight: 800; }
+  .plan .cta { justify-content: center; margin-top: auto; }
+  .plan.founder { border-color: rgba(245,0,215,.6); background: linear-gradient(180deg, #2a0f3d, #12152B); box-shadow: var(--s3); }
+  .muted { color: var(--sc-ink-soft); }
+
+  /* 7 · close */
+  .close { display: grid; place-items: center; text-align: center; padding: 0 var(--sc-gutter, 24px);
+    background: radial-gradient(40rem 30rem at calc(var(--sc-mx, .5) * 100%) calc(var(--sc-my, .5) * 100%), rgba(245,0,215,.16), transparent 70%); }
+  .close__inner { max-width: 50rem; }
+  .close .row { justify-content: center; margin-top: 2rem; gap: 12px; }
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px var(--sc-gutter, 24px); display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: center; font-size: .82rem; color: var(--sc-ink-soft); }
+  .foot a { color: inherit; }
+  .foot a:hover { color: var(--sc-ink); }
+
+  @media (prefers-reduced-motion: reduce) { .fx, .opt, .cta { transition: none; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-twitch" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
+  <symbol id="i-kick" viewBox="0 0 24 24"><path fill="currentColor" d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></symbol>
+</svg>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <img src="assets/icon.png" alt=""><b>MushHub</b>
+  <nav class="lang" aria-label="Idioma"><a href="index.html" hreflang="es" lang="es" aria-current="true">ES</a><a href="en.html" hreflang="en" lang="en" aria-current="false">EN</a></nav>
+  <a class="cta" href="https://github.com/Mushingames/MushHub-Descargas/releases/latest"><svg><use href="#i-down"/></svg>Descargar gratis</a>
+</header>
+
+<main id="top">
+
+  <!-- 1 · HYPE: scrub the real match, chat floats over it -->
+  <section data-sc-act="scrub" data-sc-span="2.2" data-sc-dwell="0.3" data-sc-drift="#070816">
+    <div data-sc-stage>
+      <img class="sc-stage__poster" src="assets/clip-b.webp" alt="">
+      <video data-sc-scrub data-sc-src="assets/clip-b.mp4" data-sc-src-mobile="assets/clip-b-m.mp4" muted playsinline></video>
+      <div class="sc-scrim sc-scrim--lead" aria-hidden="true"></div>
+      <div class="chips" aria-hidden="true">
+        <span class="chip" style="right:7%;top:20%" data-sc-parallax="-0.35"><svg style="color:#9147FF"><use href="#i-twitch"/></svg><b style="color:#9147FF">Nutty</b> ESA QUADRA 😱</span>
+        <span class="chip" style="right:18%;top:38%" data-sc-parallax="-0.6"><svg style="color:#53FC18"><use href="#i-kick"/></svg><b style="color:#53FC18">mex</b> clipéalo!!</span>
+        <span class="chip" style="right:5%;top:55%" data-sc-parallax="-0.2"><svg style="color:#E0293E"><use href="#i-youtube"/></svg><b style="color:#E0293E">MaryAnn</b> hola desde YT 💜</span>
+        <span class="chip" style="right:24%;top:70%" data-sc-parallax="-0.45"><svg style="color:#25F4EE"><use href="#i-tiktok"/></svg><b style="color:#25F4EE">senpai</b> ¿qué juego es?</span>
+      </div>
+      <div class="sc-copy sc-copy--lead" data-sc-cue="0 0.8 0" style="z-index:4">
+        <h1 class="sc-display sc-display--xl" data-sc-kinetic="lines">Transmite en todas partes. <span class="grad">Manda con tu voz.</span></h1>
+        <p class="sc-body hero-sub">MushHub conecta OBS con Twitch, Kick, YouTube y TikTok, junta tu chat y guarda tus mejores jugadas mientras tú juegas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · OVERWHELM: the juggling list assembles, notifications pile up -->
+  <section data-sc-act="pin" data-sc-span="2.4" data-sc-drift="#0b0a1c">
+    <div data-sc-stage class="juggle">
+      <div class="notes" aria-hidden="true">
+        <span class="note" style="left:6%;top:16%" data-sc-cue="0.08"><b style="color:#9147FF">Twitch</b> 12 mensajes nuevos</span>
+        <span class="note" style="right:8%;top:22%" data-sc-cue="0.2"><b style="color:#53FC18">Kick</b> alguien pregunta el juego</span>
+        <span class="note" style="left:10%;bottom:20%" data-sc-cue="0.32"><b style="color:var(--warn)">OBS</b> sigues en la escena Lobby</span>
+        <span class="note" style="right:6%;bottom:26%" data-sc-cue="0.44"><b style="color:#E0293E">YouTube</b> título: "Stream sin título"</span>
+        <span class="note" style="left:38%;top:8%" data-sc-cue="0.56"><b style="color:#25F4EE">TikTok</b> 5 rosas de mary</span>
+        <span class="note" style="left:30%;bottom:9%" data-sc-cue="0.66"><b style="color:var(--bad)">Clip</b> la jugada ya pasó</span>
+      </div>
+      <div class="juggle__lines">
+        <p data-sc-cue="0.02 1 0">Juegas.</p>
+        <p data-sc-cue="0.16 1 0.2">Lees cuatro chats.</p>
+        <p data-sc-cue="0.3 1 0.34">Cambias de escena.</p>
+        <p data-sc-cue="0.44 1 0.48">Escribes el título.</p>
+        <p data-sc-cue="0.6 1 0.66">Y te pierdes la jugada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · RELIEF: iris on a calm window -->
+  <section class="sc-section" data-sc-act="flow" data-sc-drift="#0a0a1e">
+    <div class="sc-wrap turn">
+      <div class="sc-stack" data-sc-in data-sc-stagger="80">
+        <h2 class="sc-display sc-display--lg">Ahora dilo.</h2>
+        <p class="sc-body">MushHub junta todo en una sola ventana y obedece cuando dices "Asistente". Corre en tu PC: tus clips, tu chat y tus ajustes se quedan contigo.</p>
+      </div>
+      <figure data-sc-reveal="iris" data-sc-reveal-at="0.12 0.55" style="margin:0">
+        <div class="elev win" aria-label="Ventana de MushHub en la sección En vivo" role="img">
+          <div class="win__top"><img src="assets/icon.png" alt=""><b>MushHub</b><span>Asistente de streaming</span></div>
+          <div class="win__body">
+            <div class="side"><span class="act">● En vivo</span><span>Resumen</span><span>Plataformas</span><span>Comunidad</span><span>Clips</span><span>Voz e IA</span><span>Ajustes</span></div>
+            <div class="pane">
+              <div class="row"><h3 style="margin:0">En vivo</h3><span class="pill" style="background:var(--bad)">● Transmitiendo 1:12:40</span><span class="pill" style="margin-left:auto;border:1px solid rgba(53,230,165,.4);color:var(--ok)">✓ OBS conectado</span></div>
+              <div class="vid" style="margin-top:10px"><img src="assets/clip-b.webp" alt=""></div>
+              <div class="row" style="margin-top:8px;font-weight:800;font-size:11px">
+                <span class="pill" style="border:1px solid rgba(247,244,255,.12)"><svg width="13" height="13" style="color:#9147FF"><use href="#i-twitch"/></svg>18</span>
+                <span class="pill" style="border:1px solid rgba(247,244,255,.12)"><svg width="13" height="13" style="color:#53FC18"><use href="#i-kick"/></svg>9</span>
+                <span class="pill" style="border:1px solid rgba(247,244,255,.12)"><svg width="13" height="13" style="color:#E0293E"><use href="#i-youtube"/></svg>6</span>
+                <span class="pill" style="border:1px solid rgba(247,244,255,.12)"><svg width="13" height="13" style="color:#25F4EE"><use href="#i-tiktok"/></svg>14</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="muted" style="font-size:.8rem;margin-top:.6rem">Vista de la app con una partida real de SMITE 2. Cifras de ejemplo.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4 · CONTROL: the window does the jobs as you scroll -->
+  <section data-sc-act="pin" data-sc-span="3" data-sc-drift="#0c0b22" id="work">
+    <div data-sc-stage>
+      <div class="work">
+        <div class="elev win">
+          <div class="win__top"><img src="assets/icon.png" alt=""><b>MushHub</b><span>Asistente de streaming</span></div>
+          <div class="win__body">
+            <div class="side" aria-hidden="true"><span>● En vivo</span><span>Resumen</span><span>Plataformas</span><span>Comunidad</span><span data-sb="clips">Clips</span><span data-sb="voice">Voz e IA</span><span>Ajustes</span></div>
+            <div class="pane" style="min-height:330px">
+              <div class="scene" data-w="voice">
+                <div class="row"><h3 style="margin:0">Voz e IA</h3><span class="muted" style="margin-left:auto;font-size:11px">● MushAI escuchando</span></div>
+                <p style="font:800 15px var(--sc-font-display);margin:12px 0 4px" data-w-line>"Asistente, prepara el stream de SMITE 2 con títulos graciosos"</p>
+                <div class="opt fx" data-w-o><i>1</i>Directo: buenas jugadas, risas y caos</div>
+                <div class="opt fx" data-w-o><i>2</i>¿Llego a Diamante hoy? | SMITE 2</div>
+                <div class="opt fx" data-w-o><i>3</i>El chat decide mi build | SMITE 2</div>
+                <div class="row fx" data-w-applied style="margin-top:12px">
+                  <span class="pill" style="border:1px solid rgba(53,230,165,.45);color:var(--ok)">✓ Twitch</span><span class="pill" style="border:1px solid rgba(53,230,165,.45);color:var(--ok)">✓ Kick</span><span class="pill" style="border:1px solid rgba(53,230,165,.45);color:var(--ok)">✓ YouTube</span>
+                </div>
+              </div>
+              <div class="scene" data-w="ai">
+                <h3>Clips y edición automática</h3>
+                <div class="row" style="font-size:11px"><span class="pill" style="border:1px solid rgba(247,244,255,.15)">Grabación: SMITE 2 · 2 h 14 min</span><span class="pill" style="border:1px solid rgba(247,244,255,.15)">¿Qué buscas? <b data-w-q></b></span></div>
+                <div style="margin-top:10px;display:flex;align-items:center;gap:10px"><span class="pill" style="background:linear-gradient(90deg,#8B32FF,#F500D7);padding:5px 12px">Buscar con MushAI</span>
+                  <div style="flex:1;height:6px;border-radius:6px;background:rgba(247,244,255,.1);overflow:hidden"><div data-w-bar style="height:100%;background:linear-gradient(90deg,#00E5F2,#F500D7);transform-origin:left;transform:scaleX(0)"></div></div><span data-w-pct class="muted" style="font-size:11px;width:3ch">0%</span></div>
+                <div class="res top fx" data-w-r><img src="assets/clip-a.webp" alt=""><span><b>Quadra kill con el chat explotando</b><br><span class="muted" style="font-size:11px">01:12:40 · 9 s</span></span><b class="s">9/10</b></div>
+                <div class="res fx" data-w-r><img src="assets/clip-b.webp" alt=""><span><b>Doble kill defendiendo la base</b><br><span class="muted" style="font-size:11px">01:48:05 · 9 s</span></span><b class="s">8/10</b></div>
+                <div class="res fx" data-w-r><img src="assets/clip-v.webp" alt="" style="object-position:50% 20%"><span><b>"¿Qué fue eso?" · el chat se ríe</b><br><span class="muted" style="font-size:11px">00:41:12 · 12 s</span></span><b class="s">7/10</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="work__copy">
+          <div class="scene" data-w="voice"><h2 class="sc-display sc-display--md">Tus títulos, con una frase.</h2><p class="sc-body">Te propone opciones, dices "la tres, aplícalo" y queda en Twitch, Kick y YouTube. Nada se publica sin tu confirmación.</p></div>
+          <div class="scene" data-w="ai"><h2 class="sc-display sc-display--md">MushAI encuentra tus momentos.</h2><p class="sc-body">Escucha tu grabación, mira cómo reaccionó el chat y te da los mejores con calificación. Corre en tu PC.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · TRIUMPH (peak): scroll rewinds the replay buffer, the voice line fills, the play peels off into a vertical -->
+  <section data-sc-act="pin" data-sc-span="4.4" data-sc-drift="#120a26" id="peak">
+    <div data-sc-stage>
+      <div class="peak">
+        <div class="peak__copy">
+          <h2 class="sc-display sc-display--md" id="pkTitle">Rebobina tu jugada.</h2>
+          <p class="sc-body muted" id="pkSub">El Replay Buffer guarda lo que acaba de pasar. Sube con el scroll.</p>
+        </div>
+        <div class="peak__grid">
+          <div class="elev win" style="position:relative">
+            <div class="win__top"><img src="assets/icon.png" alt=""><b>MushHub</b><span>Replay Buffer · últimos 30 s</span></div>
+            <div class="pane">
+              <div class="vid"><video id="pkVid" data-blob="assets/clip-a.mp4" poster="assets/clip-a.webp" muted playsinline preload="auto"></video></div>
+              <div class="buffer"><div class="buffer__sel" id="pkSel"></div><div class="buffer__head" id="pkHead"></div><span>Replay Buffer</span></div>
+              <div class="voice"><div class="wave" id="pkWave" aria-hidden="true"></div><p class="said" id="pkSaid" aria-live="polite">&nbsp;</p></div>
+            </div>
+            <div class="flash" id="pkFlash"></div>
+          </div>
+          <div>
+            <div class="phone" id="pkPhone"><video id="pkV" src="assets/clip-v.mp4" poster="assets/clip-v.webp" muted loop playsinline preload="auto"></video><span class="sub">¡Quadra kill!</span></div>
+            <p class="saved" id="pkSaved">✓ Clip vertical guardado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · CHOICE: plans travel sideways -->
+  <section data-sc-act="pan" data-sc-span="2.6" data-sc-drift="#0b0c1f">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.08">
+        <div class="rail__lead sc-stack">
+          <h2 class="sc-display sc-display--lg">Pruébalo primero.</h2>
+          <p class="sc-body">Gratis en lo esencial y 7 días con todo desbloqueado. Si te quedas, hazte Founder.</p>
+        </div>
+        <article class="plan elev"><h3>Free</h3><p class="price">$0</p><p class="muted">para siempre</p>
+          <ul><li>7 días con todo desbloqueado</li><li>Voz para OBS, Multi-Chat y títulos</li><li>2 búsquedas de MushAI y 5 clips verticales por semana</li></ul>
+          <a class="cta ghost" href="https://github.com/Mushingames/MushHub-Descargas/releases/latest">Descargar gratis</a></article>
+        <article class="plan elev"><h3>Mensual</h3><p class="price">Ko-fi</p><p class="muted">precio en Ko-fi · cancela cuando quieras</p>
+          <ul><li>MushAI y clips sin límite semanal</li><li>Se activa solo con tu correo de Ko-fi</li><li>Apoyas que MushHub siga creciendo</li></ul>
+          <a class="cta ghost" href="https://ko-fi.com/mushingames">Ver en Ko-fi</a></article>
+        <article class="plan elev founder"><h3>Founder</h3><p class="price">$80 <span class="muted" style="font-size:1rem">USD</span></p><p class="muted">un solo pago, de por vida</p>
+          <ul><li>Creator de por vida, sin mensualidades</li><li>Todo ilimitado, también lo que venga</li><li>Insignia Founder dentro de la app</li></ul>
+          <a class="cta" href="https://ko-fi.com/s/0e9e45dc4e">Ser Founder</a></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · CONVICTION -->
+  <section id="join" data-sc-act="pin" data-sc-span="1.15" data-sc-drift="#070816">
+    <div data-sc-stage class="close" data-sc-spotlight>
+      <div class="close__inner">
+        <h2 class="sc-display sc-display--xl" data-sc-cue="0.04" data-sc-kinetic="lines">Todo es posible si tienes las herramientas.</h2>
+        <div class="row">
+          <a class="cta" style="font-size:1.05rem;padding:1rem 1.6rem" href="https://github.com/Mushingames/MushHub-Descargas/releases/latest" data-sc-magnet="0.26" data-sc-cue="0.04" data-sc-rise="0"><svg><use href="#i-down"/></svg>Descargar gratis</a>
+        </div>
+        <p class="muted" style="margin-top:1rem;font-size:.9rem" data-sc-cue="0.04">Windows 10 y 11 · OBS Studio 28 o más reciente</p>
+      </div>
+      <footer class="foot">
+        <span>© 2026 MushInGames, México</span>
+        <a href="mailto:contacto@mushhub.stream">contacto@mushhub.stream</a>
+        <a href="https://mushhub.stream/privacidad.html#es">Privacidad y uso de datos de Google</a>
+        <a href="https://mushhub.stream/terminos.html#es">Términos</a>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var clamp01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
+  var seg = function (p, a, b) { return clamp01((p - a) / (b - a)); };
+  function prog(act) { var r = act.getBoundingClientRect(), span = r.height - innerHeight; return span > 0 ? clamp01(-r.top / span) : 0; }
+
+  // ---- act 4: scroll walks the window through its jobs
+  var work = $('#work'), q = 'una buena jugada';
+  function drawWork(p) {
+    var key = p < 0.5 ? 'voice' : 'ai';
+    $$('.scene', work).forEach(function (s) { s.classList.toggle('on', s.dataset.w === key); });
+    $$('.side [data-sb]', work).forEach(function (s) { s.classList.toggle('act', s.dataset.sb === (key === 'voice' ? 'voice' : 'clips')); });
+    var v = seg(p, 0, 0.5), opts = $$('[data-w-o]', work);
+    opts.forEach(function (o, i) { o.classList.toggle('hide', v < 0.12 + i * 0.08); });
+    opts[2].classList.toggle('pick', v > 0.6);
+    $('[data-w-line]', work).textContent = v > 0.5 ? '"La tres, aplícalo"' : '"Asistente, prepara el stream de SMITE 2 con títulos graciosos"';
+    $('[data-w-applied]', work).classList.toggle('hide', v < 0.78);
+    var a = seg(p, 0.5, 1);
+    $('[data-w-q]', work).textContent = q.slice(0, Math.round(seg(a, 0, 0.25) * q.length));
+    var bar = seg(a, 0.3, 0.65);
+    $('[data-w-bar]', work).style.transform = 'scaleX(' + bar.toFixed(3) + ')';
+    $('[data-w-pct]', work).textContent = Math.round(bar * 100) + '%';
+    $$('[data-w-r]', work).forEach(function (r, i) { r.classList.toggle('hide', a < 0.68 + i * 0.08); });
+  }
+
+  // ---- act 5 (signature): the scroll is the replay buffer
+  var peak = $('#peak'), vid = $('#pkVid'), wave = $('#pkWave'), said = $('#pkSaid');
+  for (var i = 0; i < 36; i++) wave.appendChild(document.createElement('i'));
+  var bars = $$('i', wave), dur = 9, target = 0, shown = -1;
+  vid.addEventListener('loadedmetadata', function () { dur = vid.duration || 9; vid.currentTime = dur; });
+  // blob-loaded so it seeks even on servers without range requests (same reason the engine does it)
+  if (!reduce) fetch(vid.dataset.blob).then(function (r) { return r.blob(); }).then(function (bl) { vid.src = URL.createObjectURL(bl); });
+  function drawPeak(p) {
+    // 0-0.4: scrolling rewinds the buffer (playhead walks back from the live edge)
+    var rw = seg(p, 0, 0.4);
+    target = dur * (1 - rw * 0.92);
+    $('#pkHead').style.transform = 'translateX(' + (($('.buffer', peak).clientWidth - 2) * (1 - rw * 0.34)) + 'px)';
+    $('#pkSel').style.transform = 'scaleX(' + rw.toFixed(3) + ')';
+    // 0.4-0.62: the voice line fills, bar by bar
+    var vo = seg(p, 0.4, 0.62), t = performance.now() / 140;
+    bars.forEach(function (b, k) {
+      var lit = k / bars.length < vo;
+      b.style.opacity = lit ? 1 : .3;
+      b.style.transform = 'scaleY(' + (lit && vo < 1 ? (.25 + .75 * Math.abs(Math.sin(t + k * .6) * Math.sin(t * .37 + k))) : lit ? .5 : .1).toFixed(2) + ')';
+    });
+    var txt = vo <= 0 ? ' ' : vo < 0.5 ? '"Asistente…' : '"Asistente, clip"';
+    if (said.textContent !== txt) said.textContent = txt;
+    // 0.62: it fires. flash, then the play peels off into the phone
+    var f = seg(p, 0.62, 0.7);
+    $('#pkFlash').style.opacity = (f > 0 && f < 1 ? Math.sin(f * Math.PI) : 0).toFixed(3);
+    var peel = seg(p, 0.64, 0.86), e = 1 - Math.pow(1 - peel, 3);
+    var ph = $('#pkPhone');
+    ph.style.opacity = e.toFixed(3);
+    ph.style.transform = reduce ? 'none' : 'translateX(' + ((1 - e) * -180) + 'px) scale(' + (0.6 + 0.4 * e) + ') rotate(' + ((1 - e) * -8) + 'deg)';
+    var tt = p < 0.4 ? ['Rebobina tu jugada.', 'El Replay Buffer guarda lo que acaba de pasar. Sube con el scroll.'] : p < 0.64 ? ['Dilo.', 'Sin soltar el control, sin abrir nada.'] : ['Ya es vertical.', 'Tu cámara arriba, la jugada abajo y subtítulos, listo para TikTok, Reels y Shorts.'];
+    if ($('#pkTitle').textContent !== tt[0]) { $('#pkTitle').textContent = tt[0]; $('#pkSub').textContent = tt[1]; }
+    $('#pkSaved').style.opacity = seg(p, 0.86, 0.92).toFixed(3);
+    var pv = $('#pkV'); if (peel > 0.5 && pv.paused && !reduce) pv.play().catch(function () {}); else if (peel <= 0.5 && !pv.paused) pv.pause();
+  }
+  // smoothed playhead for the buffer video
+  (function loop() {
+    if (vid.readyState >= 1 && !vid.seeking) { var d = target - vid.currentTime; if (Math.abs(d) > 0.03) vid.currentTime += d * (reduce ? 1 : 0.2); }
+    drawWork(prog(work)); drawPeak(prog(peak));
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+</body>
+</html>
