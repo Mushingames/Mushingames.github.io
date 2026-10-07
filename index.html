@@ -182,7 +182,7 @@
       <a href="es.html" hreflang="es" lang="es" data-lang="es" aria-current="false"><svg class="w-3.5 h-3.5"><use href="#i-globe"/></svg>ES</a>
       <a href="index.html" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a>
     </div>
-    <a href="https://github.com/Mushingames/MushHub-Descargas/releases/latest" class="btn btn-main inline-flex items-center gap-2 rounded-full px-4 sm:px-5 py-2.5 text-[.9rem] font-bold shrink-0">
+    <a href="https://github.com/Mushingames/MushHub-Descargas/releases" class="btn btn-main inline-flex items-center gap-2 rounded-full px-4 sm:px-5 py-2.5 text-[.9rem] font-bold shrink-0">
       <svg class="w-4 h-4"><use href="#i-down"/></svg><span class="sm:hidden">Download</span><span class="hidden sm:inline">Download free</span>
     </a>
   </nav>
@@ -198,7 +198,7 @@
     </h1>
     <p class="mt-6 text-[1.1rem] text-soft max-w-[34rem]">MushHub connects OBS with Twitch, Kick, YouTube and TikTok, merges your chat and saves your best plays while you game.</p>
     <div class="mt-9 flex flex-wrap gap-3 items-center">
-      <a href="https://github.com/Mushingames/MushHub-Descargas/releases/latest" class="btn btn-main inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-bold text-[1rem]"><svg class="w-5 h-5"><use href="#i-down"/></svg>Download free</a>
+      <a href="https://github.com/Mushingames/MushHub-Descargas/releases" class="btn btn-main inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-bold text-[1rem]"><svg class="w-5 h-5"><use href="#i-down"/></svg>Download free</a>
       <a href="#clips" class="btn btn-ghost inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-semibold text-[1rem]"><svg class="w-4 h-4 text-cy"><use href="#i-play"/></svg>Watch real clips</a>
       <a href="recorrido/en.html" class="btn btn-ghost inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-semibold text-[1rem]"><svg class="w-4 h-4 text-mag"><use href="#i-spark"/></svg>Take the tour</a>
     </div>
@@ -536,7 +536,7 @@
         <li class="flex gap-2.5"><svg class="w-5 h-5 text-ok shrink-0 mt-0.5"><use href="#i-check"/></svg>Voice for OBS, Multi-Chat and titles</li>
         <li class="flex gap-2.5"><svg class="w-5 h-5 text-ok shrink-0 mt-0.5"><use href="#i-check"/></svg>2 MushAI searches and 5 vertical clips per week</li>
       </ul>
-      <a href="https://github.com/Mushingames/MushHub-Descargas/releases/latest" class="btn btn-ghost mt-7 text-center rounded-full py-3.5 font-bold">Download free</a>
+      <a href="https://github.com/Mushingames/MushHub-Descargas/releases" class="btn btn-ghost mt-7 text-center rounded-full py-3.5 font-bold">Download free</a>
     </div>
     <div class="plan rounded-[24px] bg-deck border border-white/10 p-7 flex flex-col">
       <h3 class="font-display font-bold text-[1.5rem]">Monthly</h3>
@@ -581,7 +581,7 @@
 <section class="relative mx-auto max-w-6xl px-5 sm:px-8 pb-sec text-center">
   <h2 class="font-display font-extrabold text-[clamp(2.4rem,1.2rem+4.4vw,4.6rem)]">Your next stream <span class="grad">starts here.</span></h2>
   <p class="mt-5 text-soft text-[1.1rem]">Install MushHub, connect OBS and your accounts, and say "Assistant".</p>
-  <a href="https://github.com/Mushingames/MushHub-Descargas/releases/latest" class="btn btn-main mt-9 inline-flex items-center gap-2.5 rounded-full px-8 py-4 font-bold text-[1.05rem]"><svg class="w-5 h-5"><use href="#i-down"/></svg>Download MushHub free</a>
+  <a href="https://github.com/Mushingames/MushHub-Descargas/releases" class="btn btn-main mt-9 inline-flex items-center gap-2.5 rounded-full px-8 py-4 font-bold text-[1.05rem]"><svg class="w-5 h-5"><use href="#i-down"/></svg>Download MushHub free</a>
   <p class="mt-4 text-[.88rem] text-soft/80 max-w-2xl mx-auto">64-bit Windows 10 or 11. OBS Studio 28 or newer with the WebSocket server turned on. For the local AI, a graphics card with 8 GB or more is recommended.</p>
 </section>
 </main>
@@ -816,5 +816,5 @@ var L = {"wake":"Assistant","feed":[["twitch","kirby_123","just got here!"],["ki
   onView(player, function () { if (!reduce) player.play().catch(function () {}); });
 })();
 </script>
-</body>
+<script>fetch('https://api.github.com/repos/Mushingames/MushHub-Descargas/releases?per_page=15').then(function(r){return r.json()}).then(function(list){var rel=(list||[])[0];if(!rel)return;var a=(rel.assets||[]).find(function(x){return /Setup-.*\.exe$/i.test(x.name)&&!/Companion/i.test(x.name)});if(!a)return;document.querySelectorAll('a[href="https://github.com/Mushingames/MushHub-Descargas/releases"]').forEach(function(e){e.href=a.browser_download_url})}).catch(function(){});</script></body>
 </html>
