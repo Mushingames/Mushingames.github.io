@@ -1,0 +1,13 @@
+# MushHub
+
+> MushHub is a free streaming assistant for Windows: it controls OBS with your voice, merges the chat from Twitch, Kick, YouTube and TikTok, prepares live titles and finds the best moments of your stream with AI that runs on your PC. Spanish and English.
+
+## Pages
+- [Home (English)](https://mushhub.stream/): what MushHub does and how to download it
+- [Inicio (español)](https://mushhub.stream/es.html): qué hace MushHub y cómo descargarlo
+- [Pricing](https://mushhub.stream/pricing.html): Free, Supporter, Creator and Founder plans
+- [Press kit](https://mushhub.stream/press.html): logos, colors, clips and copy-ready descriptions
+- [Privacy](https://mushhub.stream/privacidad.html) and [Terms](https://mushhub.stream/terminos.html)
+
+## Contact
+- contacto@mushhub.stream

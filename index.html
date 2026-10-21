@@ -3,153 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#070816">
 <title>MushHub · Streaming assistant for Windows</title>
 <meta name="description" content="MushHub connects OBS with Twitch, Kick, YouTube and TikTok, merges your chat, sets your titles by voice and saves your best plays. Free for Windows.">
 <meta name="google-site-verification" content="bBZTPU-O9ZbYJQEVnWMh1CvNa7jzeLbNc9bMLateqUU">
 <link rel="canonical" href="https://mushhub.stream/">
-<link rel="alternate" hreflang="en" href="https://mushhub.stream/">
 <link rel="alternate" hreflang="es" href="https://mushhub.stream/es.html">
+<link rel="alternate" hreflang="en" href="https://mushhub.stream/">
 <link rel="alternate" hreflang="x-default" href="https://mushhub.stream/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MushHub">
 <meta property="og:title" content="MushHub · Streaming assistant for Windows">
 <meta property="og:description" content="MushHub connects OBS with Twitch, Kick, YouTube and TikTok, merges your chat, sets your titles by voice and saves your best plays. Free for Windows.">
 <meta property="og:image" content="https://mushhub.stream/media/clip-a.webp">
 <meta property="og:url" content="https://mushhub.stream/">
-<script>try{var h=localStorage.getItem('mh-home');if(h==='es'||(!h&&(navigator.language||'').toLowerCase().indexOf('es')===0))location.replace('es.html'+location.hash)}catch(e){}</script>
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script src="js/redirect.js"></script>
 <link rel="icon" href="media/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Manrope:wght@400;500;600;700;800&display=swap">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          night: '#070816', deck: '#12152B', lift: '#1A1B3D', line: '#2A2C55',
-          mag: '#F500D7', vio: '#8B32FF', cy: '#00E5F2', ink: '#F7F4FF', soft: '#B8B5D1',
-          ok: '#35E6A5', warn: '#FFC247', bad: '#FF4D77',
-          twitch: '#9147FF', kick: '#53FC18', yt: '#E0293E', tiktok: '#25F4EE'
-        },
-        fontFamily: { display: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'], body: ['Manrope', 'system-ui', 'sans-serif'] },
-        spacing: { 'sec': 'clamp(5.5rem, 10vw, 9rem)' }
-      }
-    }
-  }
-</script>
-<style>
-  :root {
-    --spring: cubic-bezier(.34, 1.56, .64, 1);
-    --out: cubic-bezier(.22, 1, .36, 1);
-    --s1: 0 1px 2px rgba(3, 4, 14, .5), 0 8px 24px -12px rgba(139, 50, 255, .35);
-    --s2: 0 2px 4px rgba(3, 4, 14, .55), 0 24px 60px -24px rgba(139, 50, 255, .45), 0 40px 90px -50px rgba(245, 0, 215, .35);
-    --s3: 0 4px 10px rgba(3, 4, 14, .6), 0 40px 100px -30px rgba(245, 0, 215, .45), 0 20px 50px -30px rgba(0, 229, 242, .35);
-  }
-  html { scroll-behavior: smooth; }
-  body { background: #070816; color: #F7F4FF; font-family: Manrope, system-ui, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  .font-display { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "wdth" 100; letter-spacing: -0.03em; line-height: 1.04; }
-  .grad { background: linear-gradient(92deg, #F500D7 0%, #8B32FF 48%, #00E5F2 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  ::selection { background: #F500D7; color: #fff; }
-  .ulink { text-decoration: underline; text-decoration-color: rgba(247, 244, 255, .3); text-underline-offset: 4px; transition: color .2s; }
-  .ulink:hover { color: #F7F4FF; text-decoration-color: #F500D7; }
-
-  .atmos { position: fixed; inset: 0; z-index: -2; pointer-events: none;
-    background:
-      radial-gradient(60vw 50vh at 85% -5%, rgba(245, 0, 215, .18), transparent 60%),
-      radial-gradient(55vw 45vh at -10% 30%, rgba(139, 50, 255, .18), transparent 62%),
-      radial-gradient(50vw 40vh at 70% 75%, rgba(0, 229, 242, .10), transparent 60%),
-      #070816; }
-  .grain { position: fixed; inset: -50%; z-index: -1; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
-
-  .elev { background: linear-gradient(180deg, rgba(26, 27, 61, .92), rgba(18, 21, 43, .92)); border: 1px solid rgba(160, 150, 255, .14); box-shadow: var(--s2); }
-  .float { box-shadow: var(--s3); }
-
-  .btn { transition: transform .45s var(--spring), box-shadow .3s var(--out), background-color .25s var(--out), opacity .25s; }
-  .btn:hover { transform: translateY(-2px); }
-  .btn:active { transform: translateY(1px) scale(.98); }
-  .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid #00E5F2; outline-offset: 3px; }
-  .btn-main { background: #F500D7; color: #fff; box-shadow: 0 10px 30px -10px rgba(245, 0, 215, .7), 0 2px 6px rgba(3, 4, 14, .5); }
-  .btn-main:hover { box-shadow: 0 16px 40px -12px rgba(245, 0, 215, .85), 0 2px 6px rgba(3, 4, 14, .5); }
-  .btn-ghost { background: rgba(247, 244, 255, .04); border: 1px solid rgba(247, 244, 255, .16); }
-  .btn-ghost:hover { background: rgba(247, 244, 255, .09); }
-  .navlink { position: relative; transition: color .2s; }
-  .navlink:hover { color: #F7F4FF; }
-  .navlink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: #F500D7; transform: scaleX(0); transform-origin: left; transition: transform .35s var(--out); }
-  .navlink:hover::after { transform: scaleX(1); }
-
-  /* language switch: always visible, clearly a control */
-  .lang { position: relative; display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(7, 8, 22, .7); border: 1px solid rgba(0, 229, 242, .45); box-shadow: 0 0 0 4px rgba(0, 229, 242, .06), 0 8px 22px -10px rgba(0, 229, 242, .55); }
-  .lang a { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .35rem; padding: .3rem .7rem; border-radius: 999px; font-weight: 800; font-size: .82rem; color: #B8B5D1; transition: color .2s, transform .45s var(--spring), background-color .25s; }
-  .lang a:hover { color: #F7F4FF; background: rgba(247, 244, 255, .07); }
-  .lang a:active { transform: scale(.94); }
-  .lang a[aria-current="true"] { color: #070816; background: #00E5F2; }
-
-  .media { position: relative; overflow: hidden; }
-  .media video, .media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .media .tint { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(139, 50, 255, .35), rgba(0, 229, 242, .15)); mix-blend-mode: multiply; pointer-events: none; }
-  .media .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(7, 8, 22, .88), rgba(7, 8, 22, .35) 32%, transparent 55%); pointer-events: none; }
-
-  .chatline { opacity: 0; transform: translateY(10px) scale(.98); transition: opacity .4s var(--out), transform .55s var(--spring); }
-  .chatline.on { opacity: 1; transform: none; }
-  .dot-live { animation: pulse 1.6s ease-in-out infinite; }
-  @keyframes pulse { 50% { opacity: .35; } }
-
-  /* ---------- app tour (hero) */
-  .appwin { font-size: 12.5px; line-height: 1.45; }
-  .sb a, .sb span { display: block; border-radius: 8px; border: 1px solid rgba(247, 244, 255, .08); padding: .42rem .6rem; font-weight: 800; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: #d9d6ee; transition: border-color .3s, background-color .3s, color .3s; }
-  .sb .act { border-color: #F500D7; background: linear-gradient(90deg, rgba(245, 0, 215, .28), rgba(139, 50, 255, .12)); color: #fff; }
-  .scene { position: absolute; inset: 0; padding: 14px 16px; opacity: 0; visibility: hidden; transform: translateY(10px) scale(.99); transition: opacity .45s var(--out), transform .6s var(--spring), visibility 0s .45s; }
-  .scene.show { opacity: 1; visibility: visible; transform: none; transition: opacity .45s var(--out), transform .6s var(--spring), visibility 0s; }
-  .pop { opacity: 0; transform: translateY(8px) scale(.97); transition: opacity .35s var(--out), transform .5s var(--spring); }
-  .pop.on { opacity: 1; transform: none; }
-  .flash { transition: background-color .3s, border-color .3s, transform .45s var(--spring); }
-  .flash.on { background: rgba(245, 0, 215, .25); border-color: #F500D7; transform: scale(1.06); }
-  .pbar { transform-origin: left; transform: scaleX(0); }
-  .tabs button { position: relative; overflow: hidden; transition: color .2s, background-color .25s, border-color .25s, transform .45s var(--spring); }
-  .tabs button:hover { color: #F7F4FF; background: rgba(247, 244, 255, .06); }
-  .tabs button:active { transform: scale(.97); }
-  .tabs button[aria-selected="true"] { color: #F7F4FF; border-color: rgba(245, 0, 215, .6); background: rgba(245, 0, 215, .08); }
-  .tabs .prog { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, #F500D7, #00E5F2); transform-origin: left; transform: scaleX(0); }
-  .crop { transition: opacity .4s var(--out), transform .6s var(--spring); }
-  .crop.off { opacity: 0; transform: scale(1.08); }
-  .phone { transition: opacity .45s var(--out), transform .7s var(--spring); }
-  .phone.off { opacity: 0; transform: translateX(26px) rotate(4deg); }
-  .step { transition: background-color .3s, border-color .3s, color .3s; }
-  .step.on { background: rgba(139, 50, 255, .3); border-color: #8B32FF; color: #fff; }
-  .vpill { transition: opacity .3s var(--out), transform .5s var(--spring); }
-  .vpill.hide { opacity: 0; transform: translateY(8px) scale(.96); }
-
-  /* waveform */
-  .wave i { display: block; width: 4px; border-radius: 3px; background: linear-gradient(#00E5F2, #8B32FF); transform-origin: center; transform: scaleY(var(--v, .15)); transition: transform .12s linear; height: 56px; }
-  .wave.sm i { width: 3px; height: 34px; }
-  .opt { transition: border-color .3s, background-color .3s, transform .45s var(--spring); }
-  .opt.pick { border-color: #00E5F2; background: rgba(0, 229, 242, .08); transform: translateX(6px); }
-
-  .fader { position: relative; width: 6px; height: 150px; border-radius: 6px; background: rgba(247, 244, 255, .08); }
-  .fader .lvl { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 6px; background: linear-gradient(to top, #35E6A5, #FFC247 70%, #FF4D77); transform-origin: bottom; transform: scaleY(var(--l, .5)); height: 100%; transition: transform .18s linear; }
-  .knob { position: absolute; left: 50%; width: 30px; height: 12px; margin-left: -15px; border-radius: 4px; background: linear-gradient(#e9e7f5, #9f9cb8); box-shadow: 0 2px 6px rgba(0,0,0,.5); transform: translateY(var(--k, 60px)); top: 0; transition: transform .6s var(--spring); }
-
-  .moment { transition: transform .45s var(--spring), opacity .25s, background-color .25s; }
-  .moment:hover { transform: scaleY(1.06); }
-  .moment[aria-pressed="true"] { background: linear-gradient(to top, #8B32FF, #F500D7); }
-  .clipcard { transition: border-color .25s, transform .45s var(--spring), background-color .25s; }
-  .clipcard:hover { transform: translateY(-2px); border-color: rgba(247, 244, 255, .25); }
-  .clipcard:active { transform: scale(.99); }
-  .clipcard[aria-pressed="true"] { border-color: #F500D7; background: rgba(245, 0, 215, .07); }
-
-  .plan { transition: transform .45s var(--spring), box-shadow .3s; }
-  .plan:hover { transform: translateY(-4px); }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
-  }
-</style>
+<link rel="preload" href="fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css?v=5c6de7a7">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"MushHub","operatingSystem":"Windows 10, Windows 11","applicationCategory":"MultimediaApplication","description":"MushHub connects OBS with Twitch, Kick, YouTube and TikTok, merges your chat, sets your titles by voice and saves your best plays. Free for Windows.","url":"https://mushhub.stream/","inLanguage":"en","image":"https://mushhub.stream/media/icon.png","publisher":{"@type":"Person","name":"Cristian Arturo Torres Sanchez (MushInGames)"},"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Founder","price":"80","priceCurrency":"USD","url":"https://ko-fi.com/s/0e9e45dc4e"}]}]}</script>
 </head>
 <body class="font-body antialiased">
+<a href="#contenido" class="skip">Skip to content</a>
 <div class="atmos" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
-
 <svg width="0" height="0" class="absolute" aria-hidden="true">
   <symbol id="i-twitch" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
   <symbol id="i-kick" viewBox="0 0 24 24"><path fill="currentColor" d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></symbol>
@@ -165,18 +47,17 @@
   <symbol id="i-live" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></g></symbol>
 </svg>
 
-<!-- ============================================================ NAV -->
 <header class="sticky top-0 z-50 backdrop-blur-md bg-night/70 border-b border-white/5">
   <nav class="mx-auto max-w-7xl px-4 sm:px-8 h-16 flex items-center gap-3 sm:gap-6" aria-label="Main">
-    <a href="#inicio" class="flex items-center gap-2.5 rounded-lg shrink-0">
+    <a href="index.html#inicio" class="flex items-center gap-2.5 rounded-lg shrink-0">
       <img src="media/icon.png" alt="" class="w-8 h-8">
       <span class="font-display text-[1.35rem] font-extrabold hidden min-[400px]:inline">MushHub</span>
     </a>
     <div class="hidden lg:flex items-center gap-7 ml-auto text-[.92rem] text-soft">
-      <a class="navlink" href="#funciones">Features</a>
-      <a class="navlink" href="#clips">Clips</a>
-      <a class="navlink" href="#empezar">Get started</a>
-      <a class="navlink" href="#precios">Pricing</a>
+      <a class="navlink" href="index.html#funciones">Features</a>
+      <a class="navlink" href="index.html#clips">Clips</a>
+      <a class="navlink" href="index.html#empezar">Get started</a>
+      <a class="navlink" href="index.html#precios">Pricing</a>
     </div>
     <div class="lang ml-auto lg:ml-0" role="group" aria-label="Language">
       <a href="es.html" hreflang="es" lang="es" data-lang="es" aria-current="false"><svg class="w-3.5 h-3.5"><use href="#i-globe"/></svg>ES</a>
@@ -188,6 +69,7 @@
   </nav>
 </header>
 
+<div id="contenido" tabindex="-1">
 <main id="inicio">
 
 <!-- ============================================================ HERO -->
@@ -245,7 +127,7 @@
           <!-- 1 · live -->
           <div class="scene" data-scene="live" role="tabpanel" id="sc-live" aria-labelledby="tb-live">
             <div class="flex items-center gap-2 flex-wrap">
-              <h3 class="font-display font-bold text-[17px]">Live</h3>
+              <p class="font-display font-bold text-[17px]">Live</p>
               <span class="inline-flex items-center gap-1.5 rounded-full bg-bad/90 px-2 py-0.5 text-[10.5px] font-bold"><i class="w-1.5 h-1.5 rounded-full bg-white dot-live"></i>Streaming <span id="liveClock">1:12:40</span></span>
               <span class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-ok/40 text-ok px-2 py-0.5 text-[10.5px] font-bold"><svg class="w-3 h-3"><use href="#i-check"/></svg>OBS connected</span>
             </div>
@@ -283,7 +165,7 @@
           <!-- 2 · voice -->
           <div class="scene" data-scene="voice" role="tabpanel" id="sc-voice" aria-labelledby="tb-voice">
             <div class="flex items-center gap-2">
-              <h3 class="font-display font-bold text-[17px]">Voice &amp; AI</h3>
+              <p class="font-display font-bold text-[17px]">Voice &amp; AI</p>
               <span class="ml-auto inline-flex items-center gap-1.5 text-[11px] text-soft"><i class="w-1.5 h-1.5 rounded-full bg-bad dot-live"></i>MushAI listening</span>
             </div>
             <div class="mt-3 rounded-xl bg-night/50 border border-white/10 p-3">
@@ -300,7 +182,7 @@
 
           <!-- 3 · MushAI finds moments -->
           <div class="scene" data-scene="ai" role="tabpanel" id="sc-ai" aria-labelledby="tb-ai">
-            <h3 class="font-display font-bold text-[17px]">Clips and auto editing</h3>
+            <p class="font-display font-bold text-[17px]">Clips and auto editing</p>
             <div class="mt-2.5 flex flex-wrap items-center gap-2">
               <span class="rounded-lg border border-white/15 bg-night/50 px-2.5 py-1 text-[11px] font-semibold">Recording: SMITE 2 · 2 h 14 min</span>
               <span class="flex items-center gap-1.5 min-w-0 rounded-lg border border-white/15 bg-night/50 px-2.5 py-1 text-[11px] grow sm:grow-0 sm:min-w-[11rem]"><span class="text-soft shrink-0">What are you looking for?</span><b id="aiQuery" class="truncate"></b><i class="w-px h-3.5 bg-cy dot-live"></i></span>
@@ -327,7 +209,7 @@
 
           <!-- 4 · vertical clip editor -->
           <div class="scene" data-scene="clips" role="tabpanel" id="sc-clips" aria-labelledby="tb-clips">
-            <h3 class="font-display font-bold text-[17px]">Vertical visual editor</h3>
+            <p class="font-display font-bold text-[17px]">Vertical visual editor</p>
             <div class="mt-2.5 flex flex-wrap gap-1.5 text-[10.5px] font-extrabold uppercase tracking-[.04em]" id="edSteps">
               <span class="step rounded-md border border-white/15 px-2 py-0.5">1 · Analyze</span>
               <span class="step rounded-md border border-white/15 px-2 py-0.5">2 · Pick</span>
@@ -427,9 +309,9 @@
   </div>
   <div class="mt-12 grid lg:grid-cols-[1.25fr_auto_1fr] gap-6 lg:gap-8 items-center">
     <div class="grid grid-cols-2 gap-3" aria-hidden="true">
-      <div class="rounded-2xl bg-deck border border-white/10 p-3 text-[.9rem] text-soft"><p class="flex items-center gap-1.5 text-[.8rem] font-bold text-twitch mb-3"><svg class="w-4 h-4"><use href="#i-twitch"/></svg>Twitch</p><p>nutty: GG</p><p>kappa: that clutch</p><p>lolo: KEKW</p></div>
+      <div class="rounded-2xl bg-deck border border-white/10 p-3 text-[.9rem] text-soft"><p class="flex items-center gap-1.5 text-[.8rem] font-bold text-[#b794ff] mb-3"><svg class="w-4 h-4"><use href="#i-twitch"/></svg>Twitch</p><p>nutty: GG</p><p>kappa: that clutch</p><p>lolo: KEKW</p></div>
       <div class="rounded-2xl bg-deck border border-white/10 p-3 text-[.9rem] text-soft"><p class="flex items-center gap-1.5 text-[.8rem] font-bold text-kick mb-3"><svg class="w-4 h-4"><use href="#i-kick"/></svg>Kick</p><p>senpai: lmao</p><p>mex: what was that</p><p>rex: 💚💚</p></div>
-      <div class="rounded-2xl bg-deck border border-white/10 p-3 text-[.9rem] text-soft"><p class="flex items-center gap-1.5 text-[.8rem] font-bold text-yt mb-3"><svg class="w-4 h-4"><use href="#i-youtube"/></svg>YouTube</p><p>flynn: hi from USA</p><p>ana: saludos!</p><p>lu: first time here</p></div>
+      <div class="rounded-2xl bg-deck border border-white/10 p-3 text-[.9rem] text-soft"><p class="flex items-center gap-1.5 text-[.8rem] font-bold text-[#ff6b7d] mb-3"><svg class="w-4 h-4"><use href="#i-youtube"/></svg>YouTube</p><p>flynn: hi from USA</p><p>ana: saludos!</p><p>lu: first time here</p></div>
       <div class="rounded-2xl bg-deck border border-white/10 p-3 text-[.9rem] text-soft"><p class="flex items-center gap-1.5 text-[.8rem] font-bold text-tiktok mb-3"><svg class="w-4 h-4"><use href="#i-tiktok"/></svg>TikTok</p><p>mary: 🌹 x5</p><p>jo: followed!</p><p>kai: 💜</p></div>
     </div>
     <svg class="hidden lg:block w-14 h-14 text-mag" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 12h15m0 0-5-5m5 5-5 5"/></svg>
@@ -540,17 +422,17 @@
     </div>
     <div class="plan rounded-[24px] bg-deck border border-white/10 p-7 flex flex-col">
       <h3 class="font-display font-bold text-[1.5rem]">Monthly</h3>
-      <p class="mt-1 font-display font-extrabold text-[2.6rem]">Ko-fi</p>
-      <p class="text-soft text-[.9rem]">price on Ko-fi · cancel anytime</p>
+      <p class="mt-1 font-display font-extrabold text-[2.6rem]">From $8</p>
+      <p class="text-soft text-[.9rem]">Supporter 8 USD · Creator 15 USD a month · cancel anytime</p>
       <ul class="mt-6 space-y-3 text-[.95rem] flex-1">
         <li class="flex gap-2.5"><svg class="w-5 h-5 text-ok shrink-0 mt-0.5"><use href="#i-check"/></svg>MushAI and clips with no weekly limit</li>
         <li class="flex gap-2.5"><svg class="w-5 h-5 text-ok shrink-0 mt-0.5"><use href="#i-check"/></svg>Activates by itself with your Ko-fi email</li>
         <li class="flex gap-2.5"><svg class="w-5 h-5 text-ok shrink-0 mt-0.5"><use href="#i-check"/></svg>You help MushHub keep growing</li>
       </ul>
-      <a href="https://ko-fi.com/mushingames" class="btn btn-ghost mt-7 text-center rounded-full py-3.5 font-bold">See on Ko-fi</a>
+      <a href="pricing.html" class="btn btn-ghost mt-7 text-center rounded-full py-3.5 font-bold">See plans and pricing</a>
     </div>
     <div class="plan relative rounded-[24px] p-7 flex flex-col border border-mag/60 bg-gradient-to-b from-[#2a0f3d] to-deck" style="box-shadow: var(--s3)">
-      <span class="absolute -top-3 right-6 rounded-full bg-mag px-3 py-0.5 text-[.78rem] font-bold">Lifetime</span>
+      <span class="absolute -top-3 right-6 rounded-full bg-[#CF00B5] text-white px-3 py-0.5 text-[.78rem] font-bold">Lifetime</span>
       <h3 class="font-display font-bold text-[1.5rem]">Founder</h3>
       <p class="mt-1 font-display font-extrabold text-[2.6rem]">$80 <span class="text-[1rem] font-semibold text-soft">USD</span></p>
       <p class="text-soft text-[.9rem]">one payment</p>
@@ -564,6 +446,7 @@
     </div>
   </div>
   <p class="mt-6 text-center text-[.9rem] text-soft">Thank you to everyone who is already a Founder. Founding investor: Squiper90.</p>
+  <p class="mt-8 text-center"><a class="ulink text-soft" href="pricing.html">Compare every plan, yearly billing and FAQ</a></p>
 </section>
 
 <!-- ============================================================ GOOGLE DATA (review) -->
@@ -586,6 +469,7 @@
 </section>
 </main>
 
+</div>
 <footer class="border-t border-white/10">
   <div class="mx-auto max-w-6xl px-5 sm:px-8 py-10 flex flex-wrap gap-x-8 gap-y-3 items-center text-[.85rem] text-soft">
     <span class="flex items-center gap-2"><img src="media/icon.png" alt="" class="w-6 h-6">© 2026 Cristian Arturo Torres Sanchez (MushInGames), México</span>
@@ -593,228 +477,16 @@
     <a class="ulink" href="https://mushhub.stream/privacidad.html">Privacy</a>
     <a class="ulink" href="https://mushhub.stream/terminos.html">Terms</a>
     <a class="ulink" href="funciones.html">All features</a>
+    <a class="ulink" href="pricing.html">Pricing</a>
+    <a class="ulink" href="press.html">Press kit</a>
     <a class="ulink" href="recorrido/en.html">Take the tour</a>
     <a class="ulink" href="https://ko-fi.com/mushingames">Ko-fi</a>
     <span class="basis-full text-[.8rem] text-soft/70">MushHub is independent and not affiliated with Twitch, Kick, YouTube, Google, TikTok or OBS.</span>
   </div>
 </footer>
 
-<script>
-var L = {"wake":"Assistant","feed":[["twitch","kirby_123","just got here!"],["kick","GOBRON","Hecate again 🔥"],["youtube","MaryAnn","hi from YT 💜"],["tiktok","senpai","what game is this?"],["twitch","Nutty","THAT QUADRA 😱"],["kick","mex","clip it!!"]],"pill":{"live":["\"Assistant, clip\"","✓ Clip saved · 30 s"],"voice":["\"Assistant, set up the SMITE 2 stream\"","\"Number three, apply it\"","✓ Title applied on 3 platforms"],"ai":["MushAI is checking your recording","✓ 3 moments found"],"clips":["Automatic 9:16 crop","✓ Vertical ready"]},"vline1":"\"Assistant, set up the SMITE 2 stream with funny titles\"","vline2":"\"Number three, apply it\"","query":"a big play","analyzing":"Analyzing recording…","found":"3 moments found","merged":[["twitch","nutty","GG that clutch 🔥"],["kick","senpai","lmao what was that"],["youtube","flynn","first time here, hi!"],["tiktok","mary","sent 5 roses 🌹"]],"mix":["\"Mute my mic\"","\"Unmute my mic\"","\"Switch to Lobby\"","\"Switch to Game\""],"clips":{"a":["Quadra kill, chat goes wild","01:12:40 · 9 s · saved with \"Assistant, clip\""],"b":["Double kill defending base","01:48:05 · 9 s · suggested by MushAI"]},"see":"Watch moment: "};
-(function () {
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var $ = function (s, r) { return (r || document).querySelector(s); };
-  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var P = { twitch: ['#9147FF', 'i-twitch'], kick: ['#53FC18', 'i-kick'], youtube: ['#E0293E', 'i-youtube'], tiktok: ['#25F4EE', 'i-tiktok'] };
-  function line(p, who, msg, size) {
-    var d = document.createElement('div');
-    d.className = 'chatline flex items-start gap-1.5 rounded-lg bg-night/80 border border-white/10 px-2 py-1 ' + (size || 'text-[11px]');
-    d.innerHTML = '<svg class="w-3.5 h-3.5 mt-[2px] shrink-0" style="color:' + P[p][0] + '"><use href="#' + P[p][1] + '"/></svg><span class="min-w-0"><b style="color:' + P[p][0] + '">' + who + '</b> ' + msg + '</span>';
-    return d;
-  }
-  function onView(el, fn, th) { new IntersectionObserver(function (es, o) { es.forEach(function (e) { if (e.isIntersecting) { fn(); o.disconnect(); } }); }, { threshold: th || .35 }).observe(el); }
-
-  // language switch remembers the choice (index.html sends Spanish browsers to es.html)
-  $$('.lang a').forEach(function (a) { a.addEventListener('click', function () { try { localStorage.setItem('mh-home', a.dataset.lang); } catch (e) {} }); });
-
-  // shared waveform helper
-  function makeWave(el, n) { for (var i = 0; i < n; i++) el.appendChild(document.createElement('i')); return $$('i', el); }
-  var waves = [];
-  (function waveLoop() {
-    var t = performance.now() / 140;
-    waves.forEach(function (w) { w.bars.forEach(function (b, i) { b.style.setProperty('--v', w.on() ? (.25 + .75 * Math.abs(Math.sin(t + i * .6) * Math.sin(t * .37 + i))).toFixed(2) : .12); }); });
-    requestAnimationFrame(waveLoop);
-  })();
-
-  // ================= HERO APP TOUR =================
-  var ORDER = ['live', 'voice', 'ai', 'clips'], DUR = 7000;
-  var SB = { live: 'live', voice: 'voice', ai: 'clips', clips: 'clips' };
-  var tour = $('#tour'), pill = $('#vpill'), pillTxt = $('#vpillTxt');
-  var cur = -1, elapsed = 0, last = 0, paused = false, inView = true, timers = [];
-  function later(ms, fn) { timers.push(setTimeout(fn, reduce ? 0 : ms)); }
-  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-  function say(txt) {
-    pill.classList.add('hide');
-    setTimeout(function () { pillTxt.textContent = txt; pill.style.borderColor = txt.charAt(0) === '✓' ? 'rgba(53,230,165,.75)' : ''; pill.classList.remove('hide'); }, reduce ? 0 : 220);
-  }
-
-  // live scene
-  var tChat = $('#tourChat'), fi = 0, chatTimer = null;
-  function pushChat() {
-    var m = L.feed[fi++ % L.feed.length], el = line(m[0], m[1], m[2]);
-    tChat.appendChild(el);
-    requestAnimationFrame(function () { el.classList.add('on'); });
-    while (tChat.children.length > 8) tChat.removeChild(tChat.firstChild);
-  }
-  for (var c = 0; c < 7; c++) pushChat();
-  $$('#tourChat .chatline').forEach(function (e) { e.classList.add('on'); });
-  var clockS = 1 * 3600 + 12 * 60 + 40;
-  setInterval(function () { clockS++; var h = Math.floor(clockS / 3600), m = Math.floor(clockS / 60) % 60, s = clockS % 60; $('#liveClock').textContent = h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; }, 1000);
-
-  // voice scene
-  var tWave = { bars: makeWave($('#tWave'), 30), talking: false, on: function () { return this.talking; } };
-  waves.push(tWave);
-
-  var SCENES = {
-    live: function () {
-      say(L.pill.live[0]);
-      if (!reduce) chatTimer = setInterval(pushChat, 1100);
-      later(2600, function () { $('#actClip').classList.add('on'); });
-      later(3300, function () { say(L.pill.live[1]); });
-      later(4200, function () { $('#actClip').classList.remove('on'); });
-    },
-    voice: function () {
-      var opts = $$('#tOpts .opt'), ap = $('#tApplied');
-      opts.forEach(function (o) { o.classList.remove('pick', 'on'); }); ap.innerHTML = '';
-      tWave.talking = true; $('#tLine').textContent = L.vline1; say(L.pill.voice[0]);
-      later(2000, function () { tWave.talking = false; opts.forEach(function (o, i) { setTimeout(function () { o.classList.add('on'); }, reduce ? 0 : i * 160); }); });
-      later(3300, function () { tWave.talking = true; $('#tLine').textContent = L.vline2; say(L.pill.voice[1]); });
-      later(4500, function () { tWave.talking = false; opts[2].classList.add('pick'); });
-      later(5100, function () {
-        ap.innerHTML = ['Twitch', 'Kick', 'YouTube'].map(function (n) { return '<span class="pop inline-flex items-center gap-1 rounded-full bg-ok/10 border border-ok/40 text-ok px-2.5 py-0.5"><svg class="w-3 h-3"><use href="#i-check"/></svg>' + n + '</span>'; }).join('');
-        $$('.pop', ap).forEach(function (e, i) { setTimeout(function () { e.classList.add('on'); }, i * 120); });
-        say(L.pill.voice[2]);
-      });
-    },
-    ai: function () {
-      var q = $('#aiQuery'), bar = $('#aiBar'), res = $$('#aiRes .pop');
-      q.textContent = ''; $('#aiChip').classList.remove('on'); res.forEach(function (r) { r.classList.remove('on'); });
-      bar.style.transition = 'none'; bar.style.transform = 'scaleX(0)'; $('#aiStatus').textContent = ''; $('#aiPct').textContent = '';
-      say(L.pill.ai[0]);
-      var txt = L.query;
-      for (var i = 1; i <= txt.length; i++) (function (n) { later(250 + n * 55, function () { q.textContent = txt.slice(0, n); }); })(i);
-      later(1500, function () { $('#aiChip').classList.add('on'); });
-      later(2000, function () { $('#aiBtn').classList.add('on'); });
-      later(2300, function () {
-        $('#aiBtn').classList.remove('on'); $('#aiStatus').textContent = L.analyzing;
-        bar.offsetWidth; bar.style.transition = 'transform 1.8s cubic-bezier(.4,0,.2,1)'; bar.style.transform = 'scaleX(1)';
-        var t0 = performance.now();
-        (function pct() { var p = Math.min(100, Math.round((performance.now() - t0) / 18)); $('#aiPct').textContent = p + '%'; if (p < 100 && cur === 2) requestAnimationFrame(pct); })();
-      });
-      later(4200, function () { $('#aiStatus').textContent = L.found; say(L.pill.ai[1]); });
-      res.forEach(function (r, i) { later(4300 + i * 260, function () { r.classList.add('on'); }); });
-    },
-    clips: function () {
-      var steps = $$('#edSteps .step'), head = $('#edHead');
-      steps.forEach(function (s) { s.classList.remove('on'); });
-      ['#cropCam', '#cropGame', '#edPhone'].forEach(function (s) { $(s).classList.add('off'); });
-      $('#edSub').classList.remove('on'); $('#edDone').classList.remove('on');
-      head.style.transition = 'none'; head.style.transform = 'none';
-      say(L.pill.clips[0]);
-      steps.forEach(function (s, i) { later(300 + i * 900, function () { s.classList.add('on'); }); });
-      later(500, function () { head.offsetWidth; head.style.transition = 'transform 4.2s linear'; head.style.transform = 'translateX(' + (head.parentNode.clientWidth * .46) + 'px)'; });
-      later(2100, function () { $('#cropCam').classList.remove('off'); });
-      later(2500, function () { $('#cropGame').classList.remove('off'); });
-      later(3300, function () { $('#edPhone').classList.remove('off'); });
-      later(4000, function () { $('#edSub').classList.add('on'); });
-      later(5000, function () { $('#edBtn').classList.add('on'); });
-      later(5500, function () { $('#edBtn').classList.remove('on'); $('#edDone').classList.add('on'); say(L.pill.clips[1]); });
-    }
-  };
-
-  var tabs = $$('.tabs [role="tab"]');
-  function go(i) {
-    clearTimers(); clearInterval(chatTimer);
-    cur = i; elapsed = 0;
-    var key = ORDER[i];
-    $$('.scene').forEach(function (s) {
-      var on = s.dataset.scene === key;
-      s.classList.toggle('show', on);
-      $$('video[data-v]', s).forEach(function (v) { if (on && !reduce) { v.currentTime = 0; v.play().catch(function () {}); } else v.pause(); });
-    });
-    $$('.sb [data-sb]').forEach(function (s) { s.classList.toggle('act', s.dataset.sb === SB[key]); });
-    tabs.forEach(function (t, j) { t.setAttribute('aria-selected', String(j === i)); t.tabIndex = j === i ? 0 : -1; $('.prog', t).style.transform = 'scaleX(' + (j < i ? 1 : 0) + ')'; $('.prog', t).style.opacity = j < i ? '.35' : '1'; });
-    SCENES[key]();
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { go(i); });
-    t.addEventListener('keydown', function (e) {
-      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (d) { e.preventDefault(); var n = (i + d + ORDER.length) % ORDER.length; go(n); tabs[n].focus(); }
-    });
-  });
-  // auto-advance; pauses while hovered, off-screen or with reduced motion
-  tour.addEventListener('mouseenter', function () { paused = true; });
-  tour.addEventListener('mouseleave', function () { paused = false; });
-  new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }, { threshold: .2 }).observe(tour);
-  function tick(now) {
-    var dt = last ? now - last : 0; last = now;
-    if (!reduce && !paused && inView && !document.hidden) {
-      elapsed += dt;
-      $('.prog', tabs[cur]).style.transform = 'scaleX(' + Math.min(1, elapsed / DUR).toFixed(3) + ')';
-      if (elapsed >= DUR) go((cur + 1) % ORDER.length);
-    }
-    requestAnimationFrame(tick);
-  }
-  go(0);
-  requestAnimationFrame(tick);
-
-  // ================= VOICE SECTION =================
-  var bigWave = { bars: makeWave($('#wave'), 34), talking: false, on: function () { return this.talking; } };
-  waves.push(bigWave);
-  var opts = $$('#titleOpts .opt'), applied = $('#applied');
-  function voiceRun() {
-    var vl = $('#voiceLine'); opts.forEach(function (o) { o.classList.remove('pick'); }); applied.innerHTML = '';
-    bigWave.talking = true; vl.textContent = L.vline1;
-    setTimeout(function () { bigWave.talking = false; }, 2200);
-    setTimeout(function () { bigWave.talking = true; vl.textContent = L.vline2; }, 3400);
-    setTimeout(function () { bigWave.talking = false; opts[2].classList.add('pick'); }, 4600);
-    setTimeout(function () { applied.innerHTML = ['Twitch', 'Kick', 'YouTube'].map(function (n) { return '<span class="inline-flex items-center gap-1.5 rounded-full bg-ok/10 border border-ok/40 text-ok px-3 py-1"><svg class="w-3.5 h-3.5"><use href="#i-check"/></svg>' + n + '</span>'; }).join(''); }, 5200);
-  }
-  $('#voiceLine').textContent = L.vline1;
-  onView($('#voiceDemo'), function () { voiceRun(); if (!reduce) setInterval(voiceRun, 9000); });
-
-  // ================= MULTICHAT =================
-  var merged = $('#mergedChat');
-  L.merged.forEach(function (m, i) {
-    var el = line(m[0], m[1], m[2], 'text-[.9rem]'); merged.appendChild(el);
-    onView(merged, function () { setTimeout(function () { el.classList.add('on'); }, 250 * i); });
-  });
-
-  // ================= MIXER =================
-  var lv = { mic: .55, game: .8, disc: .4, music: .5 }, muted = false;
-  var knobs = { mic: 30, game: 18, disc: 60, music: 70 };
-  $$('.fader').forEach(function (f) { $('.knob', f).style.setProperty('--k', knobs[f.dataset.ch] + 'px'); });
-  (function mixLoop() {
-    var t = performance.now() / 300;
-    $$('.fader').forEach(function (f, i) {
-      var c = f.dataset.ch, base = c === 'mic' && muted ? 0 : lv[c];
-      $('.lvl', f).style.setProperty('--l', reduce ? base : Math.max(0, base * (.75 + .25 * Math.sin(t + i * 1.7))).toFixed(2));
-    });
-    $$('.meter').forEach(function (m, i) { var b = +m.dataset.m; m.style.transform = 'scaleX(' + (reduce ? b : Math.max(.05, b * (.7 + .3 * Math.sin(t * 1.6 + i * 2.1)))).toFixed(3) + ')'; });
-    requestAnimationFrame(mixLoop);
-  })();
-  var acts = [function () { muted = true; }, function () { muted = false; }, function () { $('#mixScene').textContent = 'Lobby'; }, function () { $('#mixScene').textContent = 'Game'; }];
-  var ci = 0, muteTag = $('[data-mute="mic"]');
-  function mixStep() { var k = ci++ % acts.length; $('#mixCmd').textContent = L.mix[k]; acts[k](); muteTag.className = 'mute rounded-md px-2 py-0.5 text-[.72rem] font-bold ' + (muted ? 'bg-bad text-white' : 'bg-white/5'); }
-  $('#mixCmd').textContent = L.mix[0];
-  onView($('#mixer'), function () { mixStep(); if (!reduce) setInterval(mixStep, 2800); });
-
-  // ================= CLIPS =================
-  var CLIPS = {
-    a: { src: 'media/clip-a.mp4', poster: 'media/clip-a.webp', score: '9/10' },
-    b: { src: 'media/clip-b.mp4', poster: 'media/clip-b.webp', score: '8/10' }
-  };
-  var player = $('#clipPlayer'), bar = $('#moments');
-  var heights = [18, 26, 22, 34, 30, 92, 40, 24, 20, 38, 30, 28, 46, 36, 26, 22, 30, 84, 44, 26, 20, 32, 28, 24, 36, 30, 22, 26];
-  heights.forEach(function (h, i) {
-    var peak = h > 80, b = document.createElement(peak ? 'button' : 'span');
-    b.className = 'moment flex-1 rounded-t-md origin-bottom ' + (peak ? 'cursor-pointer bg-gradient-to-t from-vio/70 to-mag/70' : 'bg-white/10');
-    b.style.height = h + '%';
-    if (peak) { var key = i < 10 ? 'a' : 'b'; b.type = 'button'; b.dataset.clip = key; b.setAttribute('aria-label', L.see + L.clips[key][0]); b.setAttribute('aria-pressed', key === 'a' ? 'true' : 'false'); }
-    bar.appendChild(b);
-  });
-  function load(key) {
-    var c = CLIPS[key];
-    if (player.dataset.key !== key) { player.src = c.src; player.poster = c.poster; player.dataset.key = key; }
-    $('#clipTitle').textContent = L.clips[key][0]; $('#clipMeta').textContent = L.clips[key][1]; $('#clipScore').textContent = c.score;
-    $$('[data-clip]').forEach(function (el) { el.setAttribute('aria-pressed', String(el.dataset.clip === key)); });
-    if (!reduce) player.play().catch(function () {});
-  }
-  player.dataset.key = 'a';
-  $$('[data-clip]').forEach(function (el) { el.addEventListener('click', function () { load(el.dataset.clip); }); });
-  onView(player, function () { if (!reduce) player.play().catch(function () {}); });
-})();
-</script>
-<script>fetch('https://api.github.com/repos/Mushingames/MushHub-Descargas/releases?per_page=15').then(function(r){return r.json()}).then(function(list){var rel=(list||[])[0];if(!rel)return;var a=(rel.assets||[]).find(function(x){return /Setup-.*\.exe$/i.test(x.name)&&!/Companion/i.test(x.name)});if(!a)return;document.querySelectorAll('a[href="https://github.com/Mushingames/MushHub-Descargas/releases"]').forEach(function(e){e.href=a.browser_download_url})}).catch(function(){});</script></body>
+<script type="application/json" id="L">{"wake":"Assistant","feed":[["twitch","kirby_123","just got here!"],["kick","GOBRON","Hecate again 🔥"],["youtube","MaryAnn","hi from YT 💜"],["tiktok","senpai","what game is this?"],["twitch","Nutty","THAT QUADRA 😱"],["kick","mex","clip it!!"]],"pill":{"live":["\"Assistant, clip\"","✓ Clip saved · 30 s"],"voice":["\"Assistant, set up the SMITE 2 stream\"","\"Number three, apply it\"","✓ Title applied on 3 platforms"],"ai":["MushAI is checking your recording","✓ 3 moments found"],"clips":["Automatic 9:16 crop","✓ Vertical ready"]},"vline1":"\"Assistant, set up the SMITE 2 stream with funny titles\"","vline2":"\"Number three, apply it\"","query":"a big play","analyzing":"Analyzing recording…","found":"3 moments found","merged":[["twitch","nutty","GG that clutch 🔥"],["kick","senpai","lmao what was that"],["youtube","flynn","first time here, hi!"],["tiktok","mary","sent 5 roses 🌹"]],"mix":["\"Mute my mic\"","\"Unmute my mic\"","\"Switch to Lobby\"","\"Switch to Game\""],"clips":{"a":["Quadra kill, chat goes wild","01:12:40 · 9 s · saved with \"Assistant, clip\""],"b":["Double kill defending base","01:48:05 · 9 s · suggested by MushAI"]},"see":"Watch moment: "}</script>
+<script src="js/common.js" defer></script>
+<script src="js/home.js" defer></script>
+</body>
 </html>
